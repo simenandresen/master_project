@@ -1,0 +1,161 @@
+\section{Introduction}
+
+\clearpage
+\section{Litterature Review}
+
+In this section, different litterature on the topic of underwater vehicles with manipulators (UVMS) is presented. To focus is mostly on kinematics and force control solutions, but also some general modeling and motion control is presented.  
+\\
+
+\subsection{Antonelli G. - Underwater robotics}
+
+\cite{antonelli1} presents mathematical models of the UVMS kinematics and dynamics, as well as motion control strategies for both the vehicle, and the total system, including a manipulator arm. For motion control, several strategies using adaptive control, is presented, where the controller adapts on a minimal set of parameters. Simulations is used to show the effectiveness of both the motion control, as well as for the kinematic control. Mathematical models for well known research UVMS's are used, facilitating the process of compareing control strategies. 
+% kinematics
+
+A real-time kinematic control is proposed for the total veichle-manipulator system, exploiting the redundancy in the system. This is generalized for an ROV with the normal 6 DOFs and with a m-link manipulator giving the system a total of $6+m$ DOFs. 
+\cite{antonelli1} proposes a Closed-Loop Inverse Kinematic Algorithm for solving the inverse kinematics\footnote{Inverse kinematics will be explained later in this paper. In short it is the process of mapping end effector velocities to vehicle and joint velocities}. The algorithm uses feedback from the resulting position of the end effector to correct for the numerical drift in the method. The inverse velocity kinematics is solved with the following
+
+\begin{align}
+\label{eq:antIK}
+\bs \zeta_r &=\bs J_{p}^{\dagger}(\bs \eta,\bs q) \left( \dot{\bs x}_{p,d} + \bs K_{e} \bs e_{e} \right) + \left( \bs I_N - \bs J_{p}^\dagger(\bs \eta,\bs q) \bs J_{p}(\bs \eta,\bs q)  \right)\bs J_{s}^\dagger(\bs \eta,\bs q) \left(\dot{\bs x}_{s,d} + \bs K_{s}e_{s} \right)
+\end{align}
+Where $ \dot{\bs x}_{p,d}$ and  $ \dot{\bs x}_{s,d}$ are the primary and secondary task coordinates, representing the end effector and vehicle velocities respectively. The matrices $\bs J_p$ and $ \bs J_s $ is the mapping from the vehicle and joint positions to the primary and secondary task coordinates. $\bs J^{\dagger}$ is the Moore-Penrose pseudo inverse of $\bs J$. The vectors $\bs K_{e}\bs e_{e}$ and $ \bs K_{s}\bs e_{s}$ are the weighted  position error of the primary and secondary tasks respectively.
+The primary task is defined as the planned velocity of the end effector, while the secondary task is the desired motion of some internal element of the kinematics chain, e.g. the vehicle, that does not change the end effector velocity.
+
+\cite{antonelli1} also presents a fuzzy inverse kinematics law, based on the weighted pseudo inverse
+
+\begin{align}
+	\bs J_{w}^{\dagger} &= \bs W^{-1} \bs J^{T} \left( \bs J \bs W^{-1}\bs J^{T} \right)^{-1}
+	\label{eq:wpseudo}
+\end{align}
+
+The weighted pseudo inverse is widely used in robotics, as a robust way of avoiding joint limits by weighting the diagonal elements of $\bs W$ according to how close they are to a limit. In \cite{antonelli1}, the weighing matrix $\bs W$ is used to distribute the motion between the manipulator and the vehicle. This is done in order to avoid unescessary motion of the vehicle, yielding a more energy effective approach, due to the vehicles large inertia, relatice to the manipulator.
+
+% end antonelli
+
+% kim two time scale
+\subsection{Kim et al. -  Dynamic Analysis and Two-Time Scale Control for
+Underwater Vehicle-Manipulator Systems}
+
+\cite{two_time_scale} proposes a control scheme that takes the different bandwidth of the manipulator and vehichle into account for a generalized UVMS with a $n$-link manipulator. This is favourable since the bandwidth of the vehichle is naturally much lower due to it's larger inertia. The proposed control scheme is an active damping control with two-time scale approach in operational space. The basic consept is to control the vehichle alone using a passive or simply a proportional (P) control, and a two-time scale controller for the manipulator to control the total UVMS. 
+
+The vehichle is represented in a partially linear form, and the vehichle is controlled using
+\begin{align}
+  \bs \tau_v &= - \bs J_{v}^{-1}(\bs \eta)\bs K_v \bs \eta
+  \label{eq:kimProp}
+\end{align}
+Where $\bs J_v(\bs \eta)$ is defined as $\etadotb=\bs J_v(\etab)\vbb $. By including the controller in the partially linearized dynamics of the UVM system the manipulator control law is proposed as a feedback linearizing controller:
+\begin{align}
+  \bs \tau_m &=\bs M^* \bs u+ \bs h^*
+  \label{eq:kim_feedback_lin}
+\end{align}
+By including \eqref{eq:kim_feedback_lin} the system yields:
+
+\begin{align}
+  \bs M_{11}  \vdotbb + \bs J_v^{-1} \bs K_v \bs \eta &= -\bs M_{12} \bs u
+  \label{eq:kim_linearized} \\
+  \bs{\ddot q} &=\bs u
+  \label{eq_kim_linearized2}
+\end{align}
+For a definition of the inertia matrices $M_{11}$ and $M_{12}$ the reader are refered to \cite{two_time_scale}. Further the control input $u$ is defined as $\bs u = \bs u_{slow}+\bs u_{fast}$ where the slow part mainly affects the vehichle dynamics, while the fast part mainly affects the manipulator. $\bs u_{fast}$ is then designed as a high gain linear tracking controller yielding a frequency much higher than the bandwidth of the vehichle. The controller scheme is tested on ODIN \footnote{ODIN(Omni-Directional Intelligent Navigator) is a underwater robot developed at the Autonomous Systems Laboratory of the University of Hawaii} with a 3 DOFs manipulator, showing good tracking results.  
+
+
+\subsection{Fossen et al. - Modeling and Control of Underwater Vehicle-Manipulator Systems }
+
+\cite{foss_schjolberg_modelling} presents a mathematical model of a UVMS system, with an in depth description of most of the hydrodynamic terms. The mathematical model is separates between the manipulator dynamics and the vehicle dynamics by adding the forces of interaction between them.
+
+proposes a control law for the UVM system utilizing feedback linearization. The number of DOFs of the manipulator is not specified, but the refered manipulator jacobian is invertible and it is therefor reasonable to assume a 6 DOFs manipulator. The idea of the controller is to feedback the nonlinear terms acting on the ROV and the manipulator independently, and further use a PID feedback yielding exponential tracking error dynamics in both the manipulator and the vehichle. The proposed controller yields the closed loop control for the vehicle
+
+\begin{align}
+	\bs \tau_{r} & = \bs M_{11}(\bs q) \bs a_{v} + \bs M_{c}(\bs q) \ddot{\bs q} + \bs n_{1} \\
+	\bs a_{v} &= \ddot{\bs \eta}_{d} - \bs K_{p} \tilde{\bs \eta} - \bs K_{d} \dot{\tilde{\bs \eta}} + \bs n_{1} \left( \bs q, \dot{\bs q},\bs \nu \right)
+	\label{eq:fossenfbl}
+\end{align}
+$\bs n_{1}$ is then the vector containing all the nonlinearities of the vehicle. The control input to the manipulator $\bs \tau_{m}$ is defined in the same way. 
+
+
+
+\subsection{Han et al. - 
+Redundancy Resolution for Underwater Vehicle-Manipulator Systems
+with Minimizing Restoring Moments }
+
+\cite{redundancy_res_restoring_forces} Proposes a redundancy resolution of UVM systems which minimizes the restoring moments. The freedom of motion in the nullspace of the end effector can then be used to position the vehichle in a way that is advantagous to the energy consumption of the UVMS. This is especially favourable when the system is run by battery, and hence minimizing energy consumption is essential.
+The proposed inverse kinematic uses the weighted pseudo inverse and projects the vector $z$ into the nullspace of the jacobian $\bs J$ 
+\begin{align}
+  \xidotb&=\bs J^{W \dagger} \dot{\bs x}_E^0+(\bs I- \bs J^{W \dagger})\bs z
+  \label{eq:restoringforces_inverse}  \\
+  \bs J^{W \dagger}&= \bs W^{-1} \bs J^T  \left( \bs J \bs W^{-1} \bs J^T \right) ^{-1}
+  \label{eq:restoring_J}
+\end{align}
+Where an arbitrary velocity vector $\bs z\in \mathbb{R}^{6+n}$ is projected in the null space of the end effector Jacobian and $\bs W$ is any positive definite weight matrix, in the same way as proposed in \cite{antonelli1}. 
+The vector $z$ is then the gradient projection direction of a cost function $\phi$ which measures the systems performance to minimize the restoring moments of the vehicle. The proposed cost function is
+
+\begin{align}
+	\phi &= \frac{1}{2} || \bs r_{g} - \bs r_{b} ||
+	\label{eq:minimizingrestoring}
+\end{align}
+Where the vectors $\bs r_{g}$ and $\bs r_{b}$ are the vectors representing the center of gravity and boyancy, respectively. The paper presents simulation results, yielding good results in saving energy.
+
+
+
+
+
+
+
+\subsection{Yong Cui \& Niljanjan Sarkar - A Unified Force Control Approach to Autonomous}
+Underwater Manipulation
+\cite{unified_force_control} proposes a unified force control law for an UVM system. The UVM system is generalized for a 6 DOFs underwater vehicle and an 3-link arm. The paper includes a model of the total system, without taking the current effect into account. The controller is based on hybrid force/position and impedance control, and is supposed to keep a stable contact with the environment as well as tracking desired force trajectories without the knowledge of the environment. The paper distinguishes the three phases of operation: 
+
+
+\begin{itemize}
+  \item No contact with environment
+  \item Transition phase
+  \item Contact with environment
+\end{itemize}
+Because of the difference of control in the three phases, a fuzzy rule is proposed to identify and switch control between the different phases. The system is modeled in the task space of the end effector motion with pose $\bs X$
+\begin{align}
+  \tilde{\bs M}\ddot{\bs X}  + \tilde{\bs \zeta} = \bs F - \bs F_e
+	\label{eq:unified_model} 
+\end{align}
+Where $\tilde{\bs \zeta}$ collects the coriolis, hydronanymic and gravitational forces, $\bs F$ and $\bs F_e$ is the controlled force and the force from the environment, respectively. The proposed control $\bs F_c $ is
+
+\begin{align}
+  \bs F_c &=\bs F_{IP}W + \bs F_H(1-W )+ \hat{\tilde{\bs \zeta}} + \bs F_e 
+  \label{eq:unified_force}
+\end{align}
+Where $\bs F_{IP}$ is the output of an impedance controller,$\bs F_{H}$ is the output of a hybrid force/position controller, $\hat{\tilde{\bs \zeta}}$ is an estimate of $\tilde{\bs \zeta}$ and $W$ is the weight variable, controlled by the fuzzy logic.
+
+The purpose of the fuzzy law tuning the weight $W$ is to keep a smooth transition between the three states. Especially in the transition phase it is difficult to keep a good model of the UVMS. When the UVMS operates in the no contact phase, it is only controlled with an impedance control which is obtained by $W=1$. The impedance controller is based on the work done in \cite{impedance_stability}, and has the following structure
+
+\begin{align}
+  \bs  F_{IP} &= \hat{\tilde{\bs M}}\bs U % \hat{\tilde{\bs \zeta}} + \bs F_e
+  \label{eq:impedance_control}
+\end{align}
+Where the hat operator indicates the estimate of the variables, and $\bs U$ is the commanded acceleration giving the desired impedance:
+
+\begin{align}
+  \bs U&=\ddot{\bs X}_d + \bs P^{-1}\left[ \bs B_d(\dot{\bs X}_d-\dot{\bs X}) + \bs K(\bs X_d - \bs X) - \bs F_e\right]
+  \label{eq:impedance_control2}
+\end{align}
+Where $\bs P$, $\bs B_d$ and $\bs K$ gives the desired impedance relationship between the end effector and the environment. Further the hybrid position/force command $\bs F_H$ in \eqref{eq:unified_force} is based on the following
+
+\begin{align}
+  \bs F_H&= (\bs I - \bs S)\bs F_p + \bs S \bs F_f
+  \label{eq:hybrid1}
+\end{align}
+Where $\bs S$ is the compliance selection matrix selecting which directions in the task space force control should be applied and which directions position control should be applied. $\bs F_p$ and $\bs F_f$ is the output from PID and PI controllers, controlling the position and force respectively.
+
+
+The fuzzy rule tunes W according to the state of the system in terms of the ratio of $\frac{\bs F_e}{\bs F_d}$  and $\bs \nu_e$ where $\bs \nu_e$ and $\bs F_d$ is the desired velocity and force at the end effector. 
+Numerical simulations are done yielding good results of motion between no contact and contact operations. 
+
+
+
+
+
+\subsection{Agility for Underwater Floating Manipulation: Task \& Subsystem Priority Based Control Strategy}
+The paper from \cite{trident_1} presents interesting results from the control methodology used in the EU-FP7 TRIDENT project. Trident is based on cooperation between an Unmanned Surface Craft(USC), and an AUV with manipulator capabilities, yielding many interesting possibilities especially with respect to navigation. The Trident is aimed to develop a multipurpose Intervention AUV (I-AUV) for used for intervention in unstructured underwater environments (\cite{trident1}).The I-AUV consists of a controlled AUV which constitutes the floating base of a redundant manipulator manipulator.  The main objectives in \cite{trident_1} is to avoid joint limits in the manipulator, to keep the end effector in a dexterous pose visible for the camera, and finally to get the end effector in the position to e.g. grasp an object. This is done by  
+
+\newcommand*{\mybox}[2]{\colorbox{#1!30}{\parbox{.98\linewidth}{#2}}}
+
+
+

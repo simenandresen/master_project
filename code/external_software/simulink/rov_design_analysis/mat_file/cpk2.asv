@@ -1,0 +1,18 @@
+
+%----plot----------------------------------------
+x1e=posd-eout;
+close all
+figure(1)
+plot(t,x1e(:,3))
+xlabel('time')
+ylabel('Response')
+hold on
+plot(t,posd(:,3),':')
+hold on
+plot(inner_only.time,inner_only.signals.values,'r--')    
+hold on
+plot(t,eoutd(:,3),'c:')
+legend('zd-z', 'desired ', 'inner loop ','z')
+
+figure(2)
+plot(t,Vvel(:,3))

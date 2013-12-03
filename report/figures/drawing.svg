@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg10728"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="drawing.eps">
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="-15.496586"
+     inkscape:cy="585.94831"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1004"
+     inkscape:window-x="0"
+     inkscape:window-y="474"
+     inkscape:window-maximized="1" />
+  <defs
+     id="defs10730">
+    <marker
+       style="overflow:visible;"
+       id="Arrow2Lend"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="scale(1.1) rotate(180) translate(1,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         id="path4322" />
+    </marker>
+  </defs>
+  <metadata
+     id="metadata10733">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <path
+       inkscape:connector-curvature="0"
+       id="path10738"
+       d="M 250.51783,270.50411 C 415.1727,355.35693 415.1727,355.35693 415.1727,355.35693"
+       style="fill:none;stroke:#000000;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;marker-end:url(#Arrow2Lend)" />
+    <g
+       id="g11440">
+      <g
+         text-anchor="start"
+         word-spacing="normal"
+         letter-spacing="normal"
+         font-size-adjust="none"
+         font-stretch="normal"
+         font-weight="normal"
+         font-variant="normal"
+         font-style="normal"
+         fill-opacity="1"
+         fill-rule="evenodd"
+         fill="none"
+         stroke-opacity="1"
+         stroke-dashoffset="0"
+         stroke-dasharray="none"
+         stroke-miterlimit="10.433"
+         stroke-linejoin="miter"
+         stroke-linecap="butt"
+         stroke="black"
+         xml:space="preserve"
+         transform="matrix(1.06299212599,0,0,-1.06299212599,-186.023622047,789.271653525)"
+         id="content"><path
+           id="path11443"
+           fill="black"
+           stroke-width="0"
+           d="M496.88,438.34 L496.88,438.45 L496.87,438.55 L496.85,438.64 L496.84,438.74 L496.81,438.83 L496.78,438.91 L496.75,439 L496.71,439.08 L496.67,439.15 L496.62,439.23 L496.57,439.3 L496.51,439.37 L496.45,439.43 L496.39,439.49 L496.32,439.55 L496.25,439.6 L496.18,439.66 L496.1,439.71 L495.94,439.8 L495.77,439.88 L495.58,439.96 L495.39,440.02 L495.19,440.08 L494.98,440.12 L494.76,440.16 L494.55,440.2 L494.32,440.23 L494.1,440.25 L493.87,440.27 L493.65,440.28 L493.42,440.29 L493.2,440.29 L492.98,440.3 L492.77,440.3 L492.56,440.29 L492.36,440.29 L492.16,440.29 L491.98,440.28 L491.8,440.28 L491.64,440.28 L491.49,440.28 H472.71 C470.22,440.28,465.79,438.84,464.99,436.14 C465.08,435.84,465.19,435.79,465.49,435.79 C466.58,435.79,468.08,436.68,468.77,437.43 C470.32,437.43,471.82,437.54,473.36,437.54 H476.44 C476.44,437.54,476.24,436.64,476.24,436.59 C474.3,427.48,471.36,419.75,469.18,414.87 C468.88,414.21,466.18,408,465.49,407.4 C463.29,407.4,461.64,408.59,460.75,410.53 C460.6,410.84,460.6,411.03,460.25,411.03 C459.11,411.03,456.36,409.43,456.36,408.59 C456.36,408.5,456.41,408.39,456.47,408.29 C457.36,405.95,459.6,404.61,462.05,404.61 C464.58,404.61,467.52,406.45,469.11,408.29 C470.77,410.18,474.05,418.36,475.35,421.34 H484.96 C484.91,421.29,484.86,421.25,484.86,421.2 C484.86,421,485.16,420.84,485.36,420.84 C486.46,420.84,489.3,422.25,489.3,423.79 C489.3,424.14,488.96,424.09,488.35,424.09 H476.39 C477.69,428.57,479.38,432.95,480.29,437.54 H486.86 C488.1,437.54,491.6,437.79,492.49,436.68 C492.58,436.39,492.44,435.89,492.58,435.64 C492.69,435.54,492.83,435.5,492.99,435.5 C494.18,435.5,496.88,437,496.88,438.34 Z " /><path
+           id="path11445"
+           fill="black"
+           stroke-width="0"
+           d="M499.09,406.7 L499.19,406.7 L499.3,406.7 L499.41,406.7 L499.54,406.7 L499.67,406.71 L499.81,406.71 L499.96,406.72 L500.11,406.72 L500.27,406.73 L500.44,406.74 L500.62,406.75 L500.8,406.76 L500.98,406.77 L501.17,406.79 L501.55,406.82 L501.95,406.86 L502.35,406.91 L502.76,406.97 L503.16,407.04 L503.57,407.12 L503.76,407.17 L503.96,407.21 L504.15,407.26 L504.34,407.32 L504.52,407.37 L504.7,407.43 C507.28,408.34,507.77,410.01,507.77,411.06 C507.77,412.98,505.84,414.12,503.44,414.12 V413.15 C504.97,413.15,506.27,412.39,506.27,411.06 C506.27,407.68,500.38,407.68,498.88,407.68 H497.17 C498.59,412.73,502.47,413.15,503.44,413.15 V414.12 C499.27,414.12,493.61,410.92,493.61,404.96 C493.61,401.45,495.81,398.42,499.89,398.42 C505.78,398.42,508.53,401.86,508.53,402.36 C508.53,402.56,508.22,402.95,507.94,402.95 C507.73,402.95,507.66,402.87,507.38,402.59 C504.66,399.39,500.58,399.39,499.95,399.39 C497.86,399.39,496.47,400.78,496.47,403.61 C496.47,404.09,496.47,404.79,496.89,406.7 Z " /></g>    </g>
+  </g>
+</svg>

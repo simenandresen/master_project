@@ -1,0 +1,99 @@
+\begin{thebibliography}{13}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Antonelli(2006)]{antonelli1}
+Gianluca Antonelli.
+\newblock \emph{Underwater Robots}.
+\newblock Springer, 2th edition, 2006.
+
+\bibitem[Casalino et~al.(2012)Casalino, Zereik, Simetti, Torelli, Sperinde, and
+  Turetta]{trident_1}
+G.~Casalino, E.~Zereik, E.~Simetti, S.~Torelli, A.~Sperinde, and A.~Turetta.
+\newblock Agility for underwater floating manipulation task and subsystem
+  priority based control strategy.
+\newblock In \emph{International Conference on Intelligent Robots and Systems
+  (IROS 2012)}, September 2012.
+
+\bibitem[Cui and Sarkar(2000)]{unified_force_control}
+Yong Cui and N.~Sarkar.
+\newblock A unified force control approach to autonomous underwater
+  manipulation.
+\newblock In \emph{Robotics and Automation, 2000. Proceedings. ICRA '00. IEEE
+  International Conference on}, volume~2, pages 1263--1268 vol.2, 2000.
+\newblock \doi{10.1109/ROBOT.2000.844772}.
+
+\bibitem[Fossen(2011)]{fs}
+Thor~I. Fossen.
+\newblock \emph{Marine Craft Hydrodynamics and Motion Control}.
+\newblock Wiley, 1th edition, 2011.
+
+\bibitem[From and Pettersen(2013)]{kristin_jant}
+Gravdahl J.~T From, P.~J. and K.~Y Pettersen.
+\newblock \emph{Vehicle-manipulator Systems}.
+\newblock Springer, 2013.
+
+\bibitem[Han and Chung(2007)]{redundancy_res_restoring_forces}
+Jonghui Han and Wan~Kyun Chung.
+\newblock Redundancy resolution for underwater vehicle-manipulator systems with
+  minimizing restoring moments.
+\newblock In \emph{Intelligent Robots and Systems, 2007. IROS 2007. IEEE/RSJ
+  International Conference on}, pages 3522--3527, 2007.
+\newblock \doi{10.1109/IROS.2007.4399292}.
+
+\bibitem[Kim et~al.(2003)Kim, Chung, and Yuh]{two_time_scale}
+Jinyun Kim, Wan~Kyun Chung, and Junku Yuh.
+\newblock Dynamic analysis and two-time scale control for underwater
+  vehicle-manipulator systems.
+\newblock In \emph{Intelligent Robots and Systems, 2003. (IROS 2003).
+  Proceedings. 2003 IEEE/RSJ International Conference on}, volume~1, pages
+  577--582 vol.1, 2003.
+
+\bibitem[Lawrence(1988)]{impedance_stability}
+D.A. Lawrence.
+\newblock Impedance control stability properties in common implementations.
+\newblock In \emph{Robotics and Automation, 1988. Proceedings., 1988 IEEE
+  International Conference on}, pages 1185--1190 vol.2, 1988.
+\newblock \doi{10.1109/ROBOT.1988.12222}.
+
+\bibitem[Liegeois(1977)]{Liegeois1977}
+A.~Liegeois.
+\newblock Automatic supervisory control of the configuration and behavior of
+  multibody mechanisms.
+\newblock \emph{IEEE Trans. Systems, Man, and Cybernetics}, 7\penalty0
+  (12):\penalty0 842--868, 1977.
+
+\bibitem[Liu et~al.(2010)Liu, Zhao, and Xie]{5723588}
+Yu~Liu, Jing Zhao, and Biyun Xie.
+\newblock Obstacle avoidance for redundant manipulators based on a novel
+  gradient projection method with a functional scalar.
+\newblock In \emph{Robotics and Biomimetics (ROBIO), 2010 IEEE International
+  Conference on}, pages 1704--1709, 2010.
+\newblock \doi{10.1109/ROBIO.2010.5723588}.
+
+\bibitem[Sanz et~al.(2010)Sanz, Ridao, Oliver, Melchiorri, Casalino, Silvestre,
+  Petillot, and Turetta]{trident1}
+J.~P. Sanz, P.~Ridao, G.~Oliver, C.~Melchiorri, C.~Casalino, C.~Silvestre,
+  Y.~Petillot, and A.~Turetta.
+\newblock Trident: A framework for autonomous underwater intervention missions
+  with dexterous manipulation capabilities.
+\newblock In \emph{IFAC Intelligent Autonomous Vehicles (IAV 2010)}, September
+  2010.
+
+\bibitem[Schjoelberg and Fossen(1994)]{foss_schjolberg_modelling}
+Ingrid Schjoelberg and Thor~I. Fossen.
+\newblock Modelling and control of underwater vehicle-manipulator systems.
+\newblock In \emph{in Proc. rd Conf. on Marine Craft maneuvering and control},
+  pages 45--57, 1994.
+
+\bibitem[Spong and Hutchinson(2005)]{spong2005robot}
+M.W. Spong and S.~Hutchinson.
+\newblock \emph{Robot Modeling and Control}.
+\newblock Wiley, 2005.
+\newblock ISBN 9780471649908.
+\newblock URL \url{http://books.google.no/books?id=wGapQAAACAAJ}.
+
+\end{thebibliography}

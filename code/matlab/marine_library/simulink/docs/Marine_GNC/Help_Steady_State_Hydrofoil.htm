@@ -1,0 +1,57 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="no-bok">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Steady State Hydrofoil</title>
+</head>
+
+<body>
+
+<p><font color="#0000FF" size="6">Steady State Hydrofoil</font></p>
+
+</body>
+<p><span lang="en-us"><b>Description:</b> This block gives the lift and drag 
+forces acting on the foil, as well as<br>
+tangential and normal components of the total hydrodynamic force. The lift-drag 
+characteristic is interpolated from vectors set in the parameters.</span></p>
+<p><img border="0" src="Help_SSH_F1.gif" width="374" height="51"></p>
+<p><img border="0" src="Help_SSH_F2.gif" width="162" height="50"></p>
+<p><span lang="en-us"><b>Inputs:</b> </span></p>
+<p><span lang="en-us">Ang Eff --Efective angle of attack (\alpha_e)</span></p>
+<p><span lang="en-us">Vf&nbsp; -- Fluid velocity relative to the foil</span></p>
+<p><span lang="en-us"><b>Outputs:</b> </span></p>
+<p><span lang="en-us">L -Lift Force (N)</span></p>
+<p><span lang="en-us">D-Drag Force (N)</span></p>
+<p><span lang="en-us">N-Force Normal to the Fin (N)</span></p>
+<p><span lang="en-us">T-Force Tangential to the fin (N)</span></p>
+<p><span lang="en-us"><b>Parameters: </b></span></p>
+<p><span lang="en-us">a- Aspect ratio </span></p>
+<p><span lang="en-us">Af -area (m^2)</span></p>
+<p><span lang="en-us">CL(Ang)- Vector of Lift coefficients used for 
+interpolation</span></p>
+<p><span lang="en-us">Ang&nbsp; - Vector of angles to use in interpolation</span></p>
+<p><span lang="en-us">CDO -Drag Coefficient at zero speed</span></p>
+<p><span lang="en-us">Rho- water density&nbsp; (kg/m^3)</span></p>
+<p><span lang="en-us">
+<img border="0" src="Help_SSH_F3.gif" width="364" height="265">&nbsp;</span></p>
+<p><span lang="en-us"><b>Model Limitations</b>: The lift and drag are 
+interpolated using the above formulae and the table of the coefficient CL passed 
+through the mask as a parameters CL(Ang) and Ang .&nbsp; This is a symmetric 
+steady state characteristic; there are no memory effects modeled and the outputs 
+follow instantaneous changes of the inputs. The angle at the input to the block 
+is limited to the maximum angle in the vector Ang that defined the CL(Ang.).</span></p>
+<p><span lang="en-us"><b>Dependency:</b> None. Do not include 
+other MSS blocks are under the mask, and only uses standard Simulink blocks</span></p>
+<p><span lang="en-us"><b>References:</b> </span><font FACE="Times New Roman">&nbsp;
+</font></p>
+<ul>
+  <li><font FACE="Times New Roman">Lewis, E.V. (Ed) (1988) </font>
+  <font COLOR="#0000ff" face="Times New Roman">Pinciples of Naval Architecture 
+  vol. III Motion in Waves and Controllability</font><font face="Times New Roman"> 
+  3rd Edition, SNAME.</font><p>&nbsp;</li>
+</ul>
+
+</html>

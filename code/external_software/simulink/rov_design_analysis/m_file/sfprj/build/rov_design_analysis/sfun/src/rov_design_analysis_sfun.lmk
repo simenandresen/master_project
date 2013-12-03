@@ -1,0 +1,20 @@
+CC     = "c:\matlab7\sys\lcc\bin\lcc.exe"
+LD     = "c:\matlab7\sys\lcc\bin\lcclnk.exe"
+LIBCMD = "c:\matlab7\sys\lcc\bin\lcclib.exe"
+CFLAGS = -c -Zp8 -DMATLAB_MEX_FILE -noregistrylookup
+LDFLAGS = -s -dll -L"c:\matlab7\sys\lcc\lib"
+LIBFLAGS = 
+
+OBJECTS = \
+	"rov_design_analysis_sfun.obj"\
+	"c1_rov_design_analysis.obj"\
+
+INCLUDE_PATH= -I"c:\matlab7\sys\lcc\include"  -I"c:\matlab7\extern\include"  -I"c:\matlab7\simulink\include"  -I"c:\matlab7\stateflow\c\mex\include"  -I"c:\matlab7\stateflow\c\debugger\include"  -I"c:\matlab7\toolbox\eml\lib\dsp"  -I"c:\matlab7\toolbox\rov_design_analysis\m_file\sfprj\build\rov_design_analysis\sfun\src"  -I"c:\matlab7\toolbox\rov_design_analysis\m_file"  -I"c:\matlab7\toolbox\rov_design_analysis\vr" 
+ 
+
+rov_design_analysis_sfun.lib : $(MAKEFILE) $(OBJECTS)
+	$(LIBCMD) $(LIBFLAGS) /OUT:rov_design_analysis_sfun.lib *.obj
+rov_design_analysis_sfun.obj :	"rov_design_analysis_sfun.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "rov_design_analysis_sfun.c"
+c1_rov_design_analysis.obj :	"c1_rov_design_analysis.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c1_rov_design_analysis.c"

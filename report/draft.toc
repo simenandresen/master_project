@@ -1,0 +1,20 @@
+\contentsline {section}{\numberline {1}Introduction}{1}
+\contentsline {section}{\numberline {2}Litterature Review}{2}
+\contentsline {subsection}{\numberline {2.1}Antonelli G. - Underwater robotics}{2}
+\contentsline {subsection}{\numberline {2.2}Kim et al. - Dynamic Analysis and Two-Time Scale Control for Underwater Vehicle-Manipulator Systems}{3}
+\contentsline {subsection}{\numberline {2.3}Fossen et al. - Modeling and Control of Underwater Vehicle-Manipulator Systems }{4}
+\contentsline {subsection}{\numberline {2.4}Han et al. - Redundancy Resolution for Underwater Vehicle-Manipulator Systems with Minimizing Restoring Moments }{4}
+\contentsline {subsection}{\numberline {2.5}Yong Cui \& Niljanjan Sarkar - A Unified Force Control Approach to Autonomous}{5}
+\contentsline {subsection}{\numberline {2.6}Agility for Underwater Floating Manipulation: Task \& Subsystem Priority Based Control Strategy}{6}
+\contentsline {section}{\numberline {3}Modelling}{7}
+\contentsline {subsection}{\numberline {3.1}Kinematics}{7}
+\contentsline {subsection}{\numberline {3.2}Dynamics}{11}
+\contentsline {subsubsection}{\numberline {3.2.1}Vehicle Dynamics}{12}
+\contentsline {subsubsection}{\numberline {3.2.2}Vehicle Manipulator Dynamics}{13}
+\contentsline {section}{\numberline {4}Control}{14}
+\contentsline {subsection}{\numberline {4.1}intro}{14}
+\contentsline {subsection}{\numberline {4.2}Motion Control}{16}
+\contentsline {subsection}{\numberline {4.3}Kinematic Control}{17}
+\contentsline {subsection}{\numberline {4.4}Force Control}{19}
+\contentsline {subsection}{\numberline {4.5}Test Case: Semi Autonomous Hot Stab Operation}{19}
+\contentsline {section}{\numberline {5}Simulation}{23}

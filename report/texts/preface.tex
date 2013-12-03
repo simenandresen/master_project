@@ -1,0 +1,69 @@
+\subsection*{Acknowledgement}
+
+\clearpage
+
+
+\subsection*{Preface}
+
+\clearpage
+
+
+\abstract
+
+
+\clearpage
+
+
+\section*{Notation and Acronyms}
+
+\subsection*{Acronyms}
+%acronyms
+    \begin{longtable}{p{6cm}p{10cm}}
+		AUV & Autonomous underwater vehicle
+		\\
+		DH & Denavit-Hartenberg 
+		\\
+		ROV & Remotely operated vehicle 
+		\\
+		UVMS & Underwater Vehicle-Manipulator System
+
+
+    \end{longtable}
+\subsection*{Mathematical symbols}
+%math
+%\begin{table}[h!]
+    \begin{longtable}{p{6cm}p{10cm}}
+			n & Number of links of the manipulator \\
+			m & Number of degrees of freedom of the vehicle.  \\
+			$\bs J \in \Real{6\times (m+n)}$ & $\bs J$ without superscripts or subscripts is always the jacobian mapping the quasi-velocities $\zeta$ to the body velocity of the end effector\\
+			$\bs \omega_{0b} \in \Real 3$ & Rotational velocity of vehicle as observed from body frame.  \\
+			$\bs J^{\dagger} \in \Real{(m+n) \times 6}$ & Pseudo-inverse of $\bs J$\\
+			$\bs V_{0b}^{B} \in \Real 6  $ & Body velocity twist of vehicle\\
+			$\bs V_{0b}^{S}\in \Real 6 $ & Spatial velocity twist of vehicle\\
+			$\bs V_{0e}^{B}\in \Real 6 $ & Body velocity twist of end effector\\
+			$\bs V_{0e}^{S}\in \Real 6 $ & Spatial velocity twist of end effector\\
+			$\tau_{c} \in \Real{m+n}$ & Controlled input generalized forces\\
+			$\bs \eta = \begin{bmatrix} (\bs \eta_{1})^{T} & (\bs \eta_{2})^{T}\end{bmatrix}^{T} \in \Real 6$  & Position and rotation (euler angles) of the vehicle, relative to an inertial frame \\
+			$\bs \eta_{e} \in \Real 6$ & Position and rotation of end effector relative to inertial frame \\ 
+			$\bs \xi = \begin{bmatrix} (\bs \eta)^{T} & (\bs q)^{T}\end{bmatrix}^{T} \in \Real {m+n} $ &  Configuration of UVMS \\
+			$\bs \zeta = \begin{bmatrix} (\vb{0b}{B})^{T} & (\dot{\bs q})^{T}\end{bmatrix}^{T} \in \Real{m+n}$ & Velocities of the vehicle and manipulator arm. \\
+			$\bs J_{a} \in \Real{(m+n) \times (m+n)} $ & Analytical Jacobian. Mapping quasi-velocities to the time derrivative of the general coordinates. \\
+			$ \adg{0i}$ & Adjoint map matrix operator. \\
+			$\jg{gi}{B} \in \Real{6 \times (m+n)}$ & Geometric Jacobian. Mapping quasi velocities to velocities of frame \frame i\\
+			$\jg{ge}{B} \in \Real{6 \times (m+n)}$ & Geometric Jacobian. Mapping quasi velocities to velocities of end effector\\
+			$\bs F_{e}^{e} \in \Real 6 $ & Force on end effector from interaction with the environment \\
+			$|| \cdot ||$ & The 2 norm operator	 \\
+			$|| \cdot ||_{\infty} $ & The infinity norm operator	
+
+
+
+			
+			
+
+    \end{longtable}
+%\end{table}
+
+
+
+
+\clearpage

@@ -1,0 +1,21 @@
+
+
+Minerva:
+
+5 trustere.
+Relativ høy båndbredde på styring av ROV
+Slark i manipulator
+4 DOFS manipulator
+Ingen vinkelmåling - manipulator
+
+
+
+30 K:
+Force feedback til master-slave
+mulighet for å koble seg inn på protokoll til manipulator
+treg feedback fra rov-styring.
+6 dofs arm
+
+
+
+

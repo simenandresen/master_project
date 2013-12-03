@@ -1,0 +1,49 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Description</title>
+</head>
+
+<body>
+<p><b><font color="#0000FF" size="5"><span lang="en-us">Gaussian</span> Random 
+Process</font></b></p>
+<p><span lang="en-us"><b>Description:</b> This block generates a time series of 
+a Gaussian random process, which is represented as <br>
+a finite sum of sinusoids with fixed amplitudes (calculated from the process 
+power spectral density), and random phases . It&nbsp; can be used to simulate sea surface elevation, 
+wave loads, and ship motion response. </span></p>
+<p><img border="0" src="Help_GRP_F1.gif" width="233" height="73"></p>
+<p><span lang="en-us"><b>Inputs:</b> The input of the block is the time, that is 
+obtained from a Simulink Clock block.</span></p>
+<p><span lang="en-us"><b>Outputs:</b> The output is a time series or realization 
+of the random process; approximated as</span></p>
+<p><span lang="en-us"><b>Parameters: </b>The vectors of amplitudes [A_1,A_1,...,A_N], 
+frequencies [w_1,w_2,...,w_N], and phases [phi_1,phi_2,...,phi_N] are passed 
+through the mask. </span></p>
+<p><span lang="en-us"><b>Model Limitations and Validity Range</b>: Not 
+applicable</span></p>
+<p><span lang="en-us"><b>Dependency:</b> None. This is a stand alone block; no 
+other MSS blocks are used under the mask.</span></p>
+<p><span lang="en-us"><b>References:</b> </span><font FACE="Times New Roman">&nbsp;
+</font></p>
+<ul>
+  <li><font FACE="Times New Roman">St. Denis, M. and Pierson, W.J. (1953) </font>
+  <font COLOR="#0000ff" face="Times New Roman">On the Motion of Ships in Confused 
+  Seas</font><font face="Times New Roman">, SNAME Trans. Vol.61 pp. 280–332.</font></li>
+  <li><font face="Times New Roman">Faltinsen, O.M.&nbsp; <font color="#0000FF">
+  Sea Loads on Ships and Offshore Structures</font>, Campridge University Press.</font></li>
+</ul>
+
+<p><b>Example:</b>&nbsp; Sea surface elevation</p>
+<p><img border="0" src="Help_GRP_F2.gif" width="224" height="69"></p>
+<p>Power spectral density <i>Szz(w)</i>: </p>
+<p><img border="0" src="Help_GRP_F3.gif" width="689" height="295"></p>
+<p><b><i>Tsim</i></b> is the estimated simulation time. Te phases<i> <b>
+epsilon_i</b> </i>are chosen random with uniform distribution in [0,2pi]. </p>
+
+</body>
+
+</html>

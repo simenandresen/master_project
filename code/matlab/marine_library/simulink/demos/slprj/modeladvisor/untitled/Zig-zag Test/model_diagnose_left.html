@@ -1,0 +1,157 @@
+<html>  <head>  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Model Advisor</title>  <script>
+<!--
+
+function expandGroup(caller) {
+var targetId, targetElement ;
+targetId = caller.id + "d" ;
+targetElement = document.all(targetId) ;
+if (targetElement.style.display == "none") {
+   targetElement.style.display = "" ;
+   caller.src = "minus.png" ;
+ } else {
+   targetElement.style.display = "none" ;
+   caller.src = "plus.png" ;
+ }
+}
+
+function selectGroup(group) {
+var i; 
+// when groupid is o_1ck, find every thing start with o_1.
+var targetId = new RegExp(group.id.substr(0,group.id.length-2) + "\\w+");
+//var targetId = /out_2\w+/;
+var matchResult;
+var elementsArray = document.forms[0].elements;
+for (i=0; i< elementsArray.length; i++) {
+  if (elementsArray[i].type == "checkbox")  {
+   if (elementsArray[i].disabled == false) {     
+     //if ((elementsArray[i].id == targetId) ) {
+     matchResult = elementsArray[i].id.match(targetId);
+     if (matchResult != null) {
+       elementsArray[i].checked=group.checked;
+     }
+    }
+   }
+}  
+}
+
+// set focus to first text element of first form in the page
+function sf(){
+var i; //must declare local loop counter to avoid default global declaration
+var elementsArray = document.forms[0].elements;
+for(i=0; i < elementsArray.length; i++) {
+  if ((elementsArray[i].type == "text") && ((elementsArray[i].name != "Model"))) {
+    elementsArray[i].focus();
+    break;    
+  }
+ }
+}
+
+//set initial state for each selection element in the page
+function initiateState() {
+var i;
+var elementsArray = document.forms[0].elements;
+for (i=0; i< elementsArray.length; i++) {
+  if ((elementsArray[i].type == "select-one") ) {
+    elementsArray[i].click();
+  }
+}  
+}
+
+//translate special characters into escape sequence
+function subEncode(srcString) {
+  var srcList = new Array('z', '(', ')', '?', '&', '$', '|', '^', '{' , '}','\'','\"','\\', '[', ']', '/', '#', '<', '>', '.', '+', '=', '~', '@', '%', '`', ',');
+  var dstList = new Array('z0','z1','z2','z3','z4','z5','z6','z7','z8','z9','za','zb','zc','zd','ze','zf','zg','zh','zi','zj','zk','zl','zm','zn','zo','zp','zq');
+  var dstString;
+  var i; //must declare local loop counter to avoid default global declaration
+  dstString = '';
+  for (i=0; i < srcString.length; i++) {
+   c = srcString.charAt(i);
+   newc = c;
+   for (j=0; j < srcList.length; j++) {
+     if (c==srcList[j]) {
+       newc = dstList[j];
+       }
+     }
+   dstString+= newc;
+   }
+  return dstString;
+}
+  
+// encode each "text" field of the form
+function htmlEncode(form) {
+var elementsArray = form.elements;
+var i; //must declare loop counter to avoid default global declaration
+for(i=0; i < elementsArray.length; i++) {
+  if ((elementsArray[i].type == "text") || (elementsArray[i].type == "select") || (elementsArray[i].type == "submit")) {
+    elementsArray[i].value=subEncode(elementsArray[i].value);
+  }
+}
+//  form.MatchCase.click();
+}
+
+// make sure only one parameter is checked on update paramater page
+function uncheckOthers(form, thischeckbox) {
+var elementsArray = form.elements;
+var i; //must declare loop counter to avoid default global declaration
+if (thischeckbox.checked) {
+  for(i=0; i < elementsArray.length; i++) {
+    if (elementsArray[i].type == "checkbox") 
+      if ((elementsArray[i].checked) && (elementsArray[i].name.substring(0,12)=="paramChecked") && (elementsArray[i].name != thischeckbox.name)) {
+        elementsArray[i].checked=false;
+      }
+    }
+  }
+}
+
+// select/unselect all found objects in the table
+function selectAll(form, select) {
+var elementsArray = form.elements;
+var i; //must declare loop counter to avoid default global declaration
+for(i=0; i < elementsArray.length; i++) {
+  if (elementsArray[i].type == "checkbox")  {
+   if (elementsArray[i].disabled == false) {
+    if (select) 
+      elementsArray[i].checked=true
+    else
+      elementsArray[i].checked=false
+   }
+  }
+}
+}
+
+// -->
+</script>  <style>  A:link {text-decoration:none; color:black}  A:visited {text-decoration:none; color:black}  A:hover {text-decoration:underline; color:green}  </style>  </head>    <body>  <form method="POST" action="matlab: htmlgatewayAdvisor " name=f>    
+<table width="100%" border="0" cellspacing="0" cellpadding="0">  
+    <tr>  <td> 
+         <p align="left"><input type="checkbox" value="on" name="IfSelectAll" onClick="selectAll(this.form, this.checked)">Select or deselect all
+    </td> <td> 
+         <p align="left"><input type="submit" value="Check System" name="checkModel" onClick="htmlEncode(this.form);this.disabled=true;">  
+    </td> </tr> 
+</table>  <hr>  <p align="left"><B>Check the system for the following selected conditions. </B></p>  <TABLE width=100% border=0 align=center><TR><TD>
+<div id=outd style="display">
+<table cellpadding=0 cellspacing=0 border=0><tr><td valign=top><IMG src="minus.png" id=out_1 class="Outline" style="cursor: hand" onClick=expandGroup(this)> </td><td><IMG src="folder.png"></td><td><input type="checkbox" value="on" id="out_1ck" onClick="selectGroup(this)"> </td><td>Simulink<br></td></tr></table>
+
+<div id=out_1d style="display"><table cellpadding=0 cellspacing=0 border=0><tr><TD>&nbsp;&nbsp;&nbsp;</TD> <TD>&nbsp;&nbsp;&nbsp;</TD>
+<td valign=top><input type="checkbox" name="CheckRecord_1" value="ON" checked  id=out_1ck1></td><td><a href="model_diagnose_right.html#CheckRecord_1" target="right_frame" alt="Unconnected objects can indicate a problem in the model">Identify unconnected lines, input ports, and output ports</a><br>
+</td></tr><tr><TD>&nbsp;&nbsp;&nbsp;</TD> <TD>&nbsp;&nbsp;&nbsp;</TD>
+<td valign=top><input type="checkbox" name="CheckRecord_2" value="ON" checked  id=out_1ck2></td><td><a href="model_diagnose_right.html#CheckRecord_2" target="right_frame" alt="Root model Inport blocks that do not fully define their attributes can lead to undesired results">Check root model Inport block specifications</a><br>
+</td></tr><tr><TD>&nbsp;&nbsp;&nbsp;</TD> <TD>&nbsp;&nbsp;&nbsp;</TD>
+<td valign=top><input type="checkbox" name="CheckRecord_5" value="ON" checked  id=out_1ck3></td><td><a href="model_diagnose_right.html#CheckRecord_5" target="right_frame" alt="Inconsistencies or underspecification of hardware attributes can lead to nonoptimal results">Check the hardware implementation</a><br>
+</td></tr><tr><TD>&nbsp;&nbsp;&nbsp;</TD> <TD>&nbsp;&nbsp;&nbsp;</TD>
+<td valign=top><input type="checkbox" name="CheckRecord_6" value="ON" checked  id=out_1ck4></td><td><a href="model_diagnose_right.html#CheckRecord_6" target="right_frame" alt="Having unselected optimizations can lead to nonoptimal results">Check optimization settings</a><br>
+</td></tr><tr><TD>&nbsp;&nbsp;&nbsp;</TD> <TD>&nbsp;&nbsp;&nbsp;</TD>
+<td valign=top><input type="checkbox" name="CheckRecord_9" value="ON" checked  id=out_1ck5></td><td><a href="model_diagnose_right.html#CheckRecord_9" target="right_frame" alt="Check for models whose Model Parameter Configuration dialog boxes specify parameter tunability information. Simulink ignores tunability information specified in this way for referenced models.">Check for parameter tunability information ignored by Simulink</a><br>
+</td></tr><tr><TD>&nbsp;&nbsp;&nbsp;</TD> <TD>&nbsp;&nbsp;&nbsp;</TD>
+<td valign=top><input type="checkbox" name="CheckRecord_10" value="ON" checked  id=out_1ck6></td><td><a href="model_diagnose_right.html#CheckRecord_10" target="right_frame" alt="Check for models that are configured for implicit signal resolution, i.e., to attempt to resolve all named signals and states to Simulink.Signal objects. This is inefficent and slows down incremental code generation and model reference.">Check for implicit signal resolution</a><br>
+</td></tr><tr><TD>&nbsp;&nbsp;&nbsp;</TD> <TD>&nbsp;&nbsp;&nbsp;</TD>
+<td valign=top><input type="checkbox" name="CheckRecord_11" value="ON" checked  id=out_1ck7></td><td><a href="model_diagnose_right.html#CheckRecord_11" target="right_frame" alt="Check for virtual buses that could be made nonvirtual in order to improve the efficiency of the generated code.">Check for optimal bus virtuality</a><br>
+</td></tr></table></div>
+</div>
+</TD></TR></TABLE><p align="left"><B>*Requires the model to be compiled. </B></p>  <hr>  
+<table width="100%" border="0" cellspacing="0" cellpadding="0">  
+    <tr>  <td> 
+         <p align="left"><input type="checkbox" value="on" name="IfSelectAll" onClick="selectAll(this.form, this.checked)">Select or deselect all
+    </td> <td> 
+         <p align="left"><input type="submit" value="Check System" name="checkModel" onClick="htmlEncode(this.form);this.disabled=true;">  
+    </td> </tr> 
+</table>    </form>    </body>    </html>  

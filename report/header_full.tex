@@ -1,0 +1,172 @@
+\documentclass[11pt]{article} 
+
+% ***********************************************************
+% ******************* PHYSICS HEADER ************************
+% ***********************************************************
+% Version 2
+%\usepackage{MnSymbol}
+\newtheorem{guess}{Hypothesis}
+%\usepackage[b5paper]{geometry}
+
+
+\usepackage{mathtools}   % loads Â»amsmathÂ«
+\usepackage{empheq}
+
+
+\usepackage{epsfig}
+%\usepackage{mdframed}
+\usepackage{tikz}
+\usetikzlibrary{scopes}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{amsthm } % Theorem Formatting
+\usepackage{amssymb}	% Math symbols such as \mathbb
+\usepackage{listings}
+
+\usepackage{graphicx}
+
+%\usepackage{hyperref}
+\usepackage{multicol} % Allows for multiple columns
+
+\usepackage{fullpage, float, subfig, verbatim,amsmath, mathrsfs}
+\usepackage{fancyhdr}
+\usepackage{natbib}
+\usepackage{appendix}
+\usepackage{alltt}
+%%%%
+\usepackage{breqn}
+\usepackage{fixltx2e}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+%%%%
+\fancyhf{}
+\headsep=20pt
+
+% algorithm
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+
+\usepackage[glenn]{fncychap}
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+
+%Change the chapte layout
+\usepackage{titlesec}
+\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
+\titleformat{\chapter}[display]{\ttfamily \LARGE\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+% Fancy MATLAB-kode:
+\usepackage{textcomp}
+\definecolor{lbcolor}{rgb}{0.95,0.95,0.95}
+\lstset{
+%	backgroundcolor=\color{lbcolor},
+	tabsize=4,
+	rulecolor=,
+	language=matlab,
+        basicstyle=\scriptsize,
+        upquote=true,
+        aboveskip={1.5\baselineskip},
+        columns=fixed,
+        showstringspaces=false,
+        extendedchars=true,
+        breaklines=true,
+        prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+        frame=single,
+        showtabs=true,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle=\ttfamily,
+        keywordstyle=\color[rgb]{0,0,1},
+        commentstyle=\color[rgb]{0.133,0.545,0.133},
+        stringstyle=\color[rgb]{0.627,0.126,0.941},
+        numbers=left, 
+        numberstyle=\tiny, 
+        stepnumber=1, 
+        numbersep=5pt
+}
+
+% equations
+\definecolor{myeqcolor}{gray}{0.9}
+\newcommand*\mygraybox[1]{%
+\colorbox{myeqcolor}{\hspace{1em}#1\hspace{1em}}}
+
+% more equation highlightin
+%\usepackage{framed}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{xcolor}
+\surroundwithmdframed[
+    hidealllines=true,
+    backgroundcolor=black!20,
+    skipbelow=\baselineskip,
+    skipabove=\baselineskip
+]{equation}
+\global\mdfdefinestyle{graybox}{%
+outerlinewidth=0pt,innerlinewidth=0pt,
+outerlinecolor=gray,roundcorner=5pt,
+backgroundcolor=gray!27
+}
+
+\usepackage{longtable}
+
+%\usepackage[svgnames]{xcolor} % Required to specify font color
+
+\newcommand*{\plogo}{\fbox{$\mathcal{PL}$}} % Generic publisher logo
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\newcommand*{\titleAT}{\begingroup % Create the command for including the title page in the document
+\newlength{\drop} % Command for generating a specific amount of whitespace
+\drop=0.1\textheight % Define the command as 10% of the total text height
+
+\rule{\textwidth}{1pt}\par % Thick horizontal line
+\vspace{2pt}\vspace{-\baselineskip} % Whitespace between lines
+\rule{\textwidth}{0.4pt}\par % Thin horizontal line
+
+\vspace{\drop} % Whitespace between the top lines and title
+\centering % Center all text
+%\textcolor{Red}{ % Red font color
+{\Huge A TITLE}
+
+\vspace{0.25\drop} % Whitespace between the title and short horizontal line
+\rule{0.3\textwidth}{0.4pt}\par % Short horizontal line under the title
+\vspace{\drop} % Whitespace between the thin horizontal line and the author name
+by \\
+\vspace{0.25\drop} % Whitespace between the thin horizontal line and the author name
+{\Large \textsc{Simen Andresen}}\par % Author name
+\vfill % Whitespace between the author name and publisher text
+
+NTNU
+\rule{\textwidth}{0.4pt}\par % Thin horizontal line
+\vspace{2pt}\vspace{-\baselineskip} % Whitespace between lines
+\rule{\textwidth}{1pt}\par % Thick horizontal line
+
+\endgroup}
+
+
+
+\linespread{1.5}
+
+
+
+
+% algorithms
+\floatstyle{plain}
+\newfloat{myalgo}{tbhp}{mya}
+
+\newenvironment{Algorithm}[2][tbh]%
+{\begin{myalgo}[#1]
+\centering
+\begin{minipage}{#2}
+\begin{algorithm}[H]}%
+{\end{algorithm}
+\end{minipage}
+\end{myalgo}}
+
+% then use the following
+		%\begin{Algorithm}[t]
+		%\caption{Does work, though no nice solution.}
+		%\end{Algorithm}

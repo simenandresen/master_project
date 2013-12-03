@@ -1,0 +1,173 @@
+p
+\subsection{Kinematic Control}
+An UVM system is kinematically redundant, meaning that it's configuration space is larger then the task space of the end effector. This is due to the 6 degrees of rotational and translational degrees of freedom of the underwater vehicle in addition to the degrees of freedom given by the number of manipulator joints. Because of this, each configuration of the end effector task space can be obtained by an infinite of configurations in the configuration space of the manipulator. 
+As has been customary in robotics litterature, the mapping from the configuration space to the task space of the end effector\footnote{The task space is used to describe the configuration of the end effector relative to an inertial frame.} is done through the Jacobian, mapping the quasi-velocities of the system to the velocities of the end effector as described in \eqref{eq:body_jacobi}. The velocities can then be transformed to the time derivative of the general 
+velocities, according to the analytical jacobian \eqref{eq:jacobian_a}, and then integrated to obtain the configuration $\bs \xi(t)$.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.7]{./figures/inverse-kinematics1.eps}
+	\caption{Transformation from end effector velocities to generalized coordinates of the UVMS}
+	\label{fig:inverse1}
+\end{figure}
+The inverse kinematics is, in this context, described as the process of obtaining feasible quasi-velocities $\zeta$ from the desired end effector velocities. Due to the redundancy of the system, the set of feasible velocities $\zeta$ is not unique. In robotics litterature the Gradient Projection Method (GPM) is widely used in order to solve inverse kinematics. This method was first proposed in \cite{Liegeois1977}, and has later been developed and adapted my others.
+Using the notation in this text, GPM by the following equation (\cite{Liegeois1977})
+
+\begin{align}
+	\bs	\zeta	&= \bs J^{+}\vb{0e}{B} + \left( \bs I -\bs J^{+} \bs J \right)k \nabla \bs H
+	\label{eq:gpm1}
+\end{align}
+Where the matrix $\bs J$ is the body geometric jacobian, as described in \eqref{eq:} $\bs J^+ \in \Real{12\times 6}$ is the Moore-Penrose pseudo inverse of $\bs J$.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Control}
+
+To simplify the dynamic control of the UVMS the author proposes a fuzzy aproach to deal with the complexity of the vehichle-manipulator coupling effect. This can be implemented in a fuzzy kinematic control law giving reference 
+trajectories to the dynamic control laws for the vehichle and manipulator.
+
+
+\subsection{Motion Control}
+The inner loop of the motion control is outside the scope of this text. For modelling and simulation purposes however, a control strategy based on feedback linearization is proposed, and implemented in SIMULINK in order to 
+simulate the force control and the inverse kinematics. To simplify the implementation and analysis we use the model of the UVMS from \eqref{eq:dyn_with_current} split the input $\bs \tau$ into a cancelling term $\bs \tau_c$ and a 
+linear control term $\bs \tau_l$ and use $\bs \tau_c$ to cancel out all the nonlinearities and terms including the current. The interaction forces are also left out for now, yielding
+
+\begin{align}
+	\bs M(\bs q)_{RB}\zetadotb = \bs \tau_l
+	\label{eq:linearized_feedback}
+\end{align}
+
+
+
+\subsection{Force control}
+
+The application of the force control is to do a hot stab operation. This is done much in the same way as a peg-in-hole assembly, which is widely studied in robotic litterature. We will attach a frame to the point the hot stab is done, which serves as a reference frame for the end effector of the manipulator. In spatial impedance control (citation needed) one frame is attached to the robot end effector, another frame is attached as a reference frame to the control system, and a third is attached to the environment, i.e. the hot stab insertion point system, and a third is attached to the environment, i.e. the hot stab insertion point.   
+
+\subsection{Force Control 2}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.7]{./figures/uvms_kinematics_force.eps}
+	\caption{Frames of the UVMS with the inertial and task frame}
+	\label{fig:uvms_force}
+\end{figure}
+The force control is analyzed in the task space, as observed by the end effector, and we can define the forces acting upon the manipulator due to contact with the environment 
+\begin{align}
+	\bs F_e^e&=\begin{bmatrix} f_x & f_y & f_z & m_x & m_y & m_z \end{bmatrix}
+	\label{eq:force_force}
+\end{align}
+$\bs F_e^e$ is therefor the same as $\bs F$ defined in \eqref{eq:jacobian_force} and can therefor be mapped into the joint the general forces $\taub$ by the transpose jacobian
+\begin{align}
+	\taub&=(\jb{ge}{B})^T\bs F_e^e
+	\label{eq:jacobian-force2}
+\end{align}
+Let the translational part of the trajectory of the end effector be defined as
+
+\begin{align}
+	\bs X(t) \; , \; \dot{\bs X}(t)\; , \; \ddot{\bs X}(t)	
+	\label{eq:ee_traj}
+\end{align}
+Which gives the position, velocity and acceleration of the end effector relative to the task frame \frame T, illustrated in Fig. \ref{fig:uvms_force}. Further we will define a nominal trajectory which represents the planned trajectory, given by a path plan algorithm and/or an operator
+
+\begin{align}
+	\bs X_0(t) \; , \; \dot{\bs X}_0(t)\; , \; \ddot{\bs X}_0(t)	
+	\label{eq:nominal_force}
+\end{align}
+We can then model the force due to interaction, when the end effector is in contact with the environment, \cite{impedance_stability}
+
+\begin{align}
+	\bs F&=\bs K(\bs X - \bs X_0) + \bs B(\dot{\bs X} - \dot{\bs X}_0) + \bs J(\ddot{\bs X} - \ddot{\bs{X}}_0)
+	\label{eq:ee_impedance1}
+\end{align}
+The nominal path can then be interpreted as the no contact path. The constants $\bs K$, $\bs B$ and $\bs J$ can then be regarded as the desired stiffness, damping and inertia of the end effector in contact with the environment. The impedance defined in \eqref{eq:nominal_force} can then be obtained either by direct force control, or it can be used to adjust the path of the endeffector, relying on an inner position control loop. In this paper the latter will be discussed. \cite{impedance_stability} proposes an adjustment vector $\bs X_a$ which is a result of filtering $\bs F$ through a second order low pass filter. We will, for the sake of simplicity only consider diagonal $\bs K$, $\bs B$ and $\bs J$ matrices, so that the forces are decoupled. We can then write the adjustment of the commanded trajectory as
+
+\begin{align}
+	\bs X_{a,i}(s)&= \frac{1}{(K_i+ B_is+ J_is^2)} f_i(s) \; , \; i=x , y , z 
+	\label{eq:x_adjusted}
+\end{align}
+$\bs X_a$ can then be seen as a perturbation from the nominal path due to the desired impedance, as defined in \eqref{eq:ee_impedance1}.  The commanded trajectory $\bs X_c$ that is used as the input for the motion control loop can then be written as
+\begin{align}
+	\bs X_c&= \bs X_0 + \bs X_a
+	\label{eq:controlled_traj}
+\end{align}
+If the inner control loop manages to track $\bs X_c$ perfectly, the impedance between the environment and the end effector is described by \eqref{eq:ee_impedance1}. In practice it is very difficult to track the commanded trajectory perfect, and one must therefor analyze the system further in terms of robustness. The inner control loop is outside the scope of this paper, and we will for now tolerate a small deviation between the commanded trajectory, and the actual trajectory. Designing the impedance based position adjustment whithout the knowledge of the error dynamics of the inner control loop gives a flexible and modular design, but demands a possibly higher robustness, to match the unknown uncertainties 
+
+
+\subsection{Test Case: Semi Autonomous Hot Stab Operation}
+A hot stab is a typical operation done by ROV's on subsea installations, which gives the opportunity to connect and disconnect different hydraulic components. 
+The hot stab operation is in many ways analogous to the ``peg-in-hole'' problem which is widely studied in robotics litterature. The terms peg and hole will from now on refer to the hot stab tool, and the hole it is inserted into. In this section we will assume that measurements of the end effector pose and rates are available, together with an approximate measure of the pose of the task frame w.r.t the inertial frame.
+
+In this test case, a human operator will control the velocity along the z axis in the task frame \frame{T} which is the axis that the peg is inserted along. To aid the operator in inserting the hot stab, a force-control strategy is  
+implemented to prevent the commanded velocity along the z-axis to be nonzero when the hot stab has reached a threshold force in the z direction. 
+When inserting the hot stab, the end effector has one more degree of freedom, which is the angular motion around $z^T$, but this will only be commanded to $0$. The motion along and about the $z^T$ axis are called the compliant axes, while the other four constitutes the non-compliant axes. 
+\footnote{The motion around $z^T$ is usually used to open or close a valve once the hot stab is inserted} 
+When inserting the hot stab, it is important that it is aligned with the hole it is inserted into. The other 4 degrees of freedom, which is the linear motion along $x^T$ and $y^T$ and the motion about these axes will be automatically controlled. 
+One approach could be to align the peg with the $z^T$ axis and then control the velocities to zero. A benefit with this approach is that the end effector would not be forced to move in the noncompliant directions when it was in contact with the environment. 
+The drawback of this approach is that the end effector could be significantly misaligned with the task frame due to large impacts with the environment, or due to ocean current.
+To assure alignment position feedback is necassary. A drawback with controlling directly based on the position feedback is that when the measured task frame is slightly misaligned with the real one, large forces are used to compensate, causing large forces on the gear, unecessary energy consumption, and jamming of the peg. 
+To overcome this, a force control method is proposed to adjust the velocity command of the end effector in the compliant degrees of freedom, using both position and force feedback. We will continue to work in the task frame 
+and we will denote the vector of commanded velocities of the end effector as seen from \frame T as 
+
+\begin{align}
+\bs V_c&= \begin{bmatrix} u, v, w, p, q, r \end{bmatrix}^T
+	\label{eq:vel_taskframe}
+\end{align}
+The pose of the end effector with respect to \frame T is described by
+
+\begin{align}
+	\bs X&=\begin{bmatrix} x, y, z, \phi, \theta, \psi \end{bmatrix}^T
+	\label{eq:pos_taskframe}
+\end{align}
+By linearizing the matrix $\bs T$, that transforms the velocities of the end effector $\bs V$ to the derivative of the position, around a zero orientation yields 
+
+\begin{align}
+	\dot{\bs X} &= D \bs T\Big|_{\phi = \theta = \psi = 0}\bs V 
+	\label{eq:linearized_t}
+	\\
+	&=I_{6 \times 6}\bs V	
+	\label{eq:linearized_t2}
+\end{align}
+Throughout this section, the angular motion is regarded as perturbations from the nominal orientation $\phi = \theta = \psi = 0$ (the end effector frame is aligned with the task frame), and thus the linearized system is a good approximation, yielding $\dot{\bs X} = \bs V$.
+Further, let the following denote the deviation of the pose from the desired alignment $\bs p_0$ with \frame T 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics{./figures/control_structure.eps}
+	\caption{Control structure}
+	\label{fig:control_structure}
+\end{figure}
+
+
+
+
+
+

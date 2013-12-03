@@ -1,0 +1,76 @@
+\input{header_full.tex}
+%\newcommand{\textpath}{./texts/}
+
+
+
+%%%%%%% TITLE %%%%%%%%%%%%%%%%%%%%%
+
+\title{My title}
+\author{Simen Andresen}
+\date{\ \\ \ \\ \today}
+
+%%%%%%%%%%% DOCUMENT %%%%%%%%%%%%%
+\begin{document}
+
+\captionsetup{width=0.8\textwidth}
+
+% custom commands - variables etc
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\taub}{\bs \tau}
+\newcommand{\vdotbb}{\dot{\bs V}_{0b}^B}
+\newcommand{\vdotb}[2]{\dot{\bs V}_{#1}^#2}
+\newcommand{\vbb}{\bs V_{0b}^B}
+\newcommand{\vb}[2]{\ensuremath{\bs V_{#1}^#2}}
+\newcommand{\jg}[2]{\ensuremath{\bs J_{#1}^#2}}
+\newcommand{\qdot}{\dot{\bs q}}
+\newcommand{\xidotb}{\dot{\bs \xi}}
+\newcommand{\xib}{\bs \xi}
+\newcommand{\zetab}{\bs \zeta}
+\newcommand{\zetadotb}{\dot{\bs \zeta}}
+\newcommand{\etab}{\ensuremath{\bs \eta}}
+\newcommand{\etadotb}{\ensuremath{\dot{\bs \eta}}}
+\newcommand{\adg}[1]{\ensuremath{\bs{Ad}_{g_{#1}}}}
+\newcommand{\adgb}{\ensuremath{\bs{Ad}_{g_{0b}}}}
+\renewcommand{\frame}[1]{\ensuremath{\mathcal{F}_{#1}}}
+\newcommand{\Real}[1]{\ensuremath{\mathbb{R}^{#1}}}
+\newcommand{\rb}[1]{\ensuremath{\bs R_{#1}}}
+\newcommand{\pb}[1]{\ensuremath{\bs p_{#1}}}
+\newcommand{\jb}[2]{\ensuremath{\bs J_{#1}^{#2}}}
+
+\pagestyle{empty}
+\titleAT
+
+\
+\cleardoublepage
+
+
+
+ %%%%%%%%%%%%% BODY %%%%%%%%%%%%%%
+\input{./texts/preface.tex}
+
+\cleardoublepage
+\tableofcontents
+\cleardoublepage
+
+\pagestyle{fancy}
+\chead{}
+\setcounter{page}{1}
+
+\lfoot{\thepage}
+
+
+
+
+
+\input{./texts/litterature_study.tex}
+\input{./texts/modelling.tex}
+\input{./texts/control.tex}
+\input{./texts/simulation.tex}
+
+
+\newpage
+\bibliographystyle{plainnat}	% (uses file "plain.bst")
+\bibliography{myrefs}		% expects file "myrefs.bib"
+
+%\input{appendix.tex}
+\end{document}
