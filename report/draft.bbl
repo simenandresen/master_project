@@ -1,4 +1,4 @@
-\begin{thebibliography}{13}
+\begin{thebibliography}{17}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -10,6 +10,12 @@ Gianluca Antonelli.
 \newblock \emph{Underwater Robots}.
 \newblock Springer, 2th edition, 2006.
 
+\bibitem[Bullo and Lewis(2004)]{bullo1}
+F.~Bullo and A.~D. Lewis.
+\newblock \emph{Geometric Control of Mechanical Systems}.
+\newblock 2004.
+\newblock ISBN 0387221956.
+
 \bibitem[Casalino et~al.(2012)Casalino, Zereik, Simetti, Torelli, Sperinde, and
   Turetta]{trident_1}
 G.~Casalino, E.~Zereik, E.~Simetti, S.~Torelli, A.~Sperinde, and A.~Turetta.
@@ -18,6 +24,15 @@ G.~Casalino, E.~Zereik, E.~Simetti, S.~Torelli, A.~Sperinde, and A.~Turetta.
 \newblock In \emph{International Conference on Intelligent Robots and Systems
   (IROS 2012)}, September 2012.
 
+\bibitem[Chan and Dubey(1995)]{370511}
+Tan~Fung Chan and R.V. Dubey.
+\newblock A weighted least-norm solution based scheme for avoiding joint limits
+  for redundant joint manipulators.
+\newblock \emph{Robotics and Automation, IEEE Transactions on}, 11\penalty0
+  (2):\penalty0 286--292, 1995.
+\newblock ISSN 1042-296X.
+\newblock \doi{10.1109/70.370511}.
+
 \bibitem[Cui and Sarkar(2000)]{unified_force_control}
 Yong Cui and N.~Sarkar.
 \newblock A unified force control approach to autonomous underwater
@@ -25,6 +40,14 @@ Yong Cui and N.~Sarkar.
 \newblock In \emph{Robotics and Automation, 2000. Proceedings. ICRA '00. IEEE
   International Conference on}, volume~2, pages 1263--1268 vol.2, 2000.
 \newblock \doi{10.1109/ROBOT.2000.844772}.
+
+\bibitem[Featherstone(2010)]{featherstone}
+R.~Featherstone.
+\newblock A beginner's guide to 6-d vectors (part 1).
+\newblock \emph{Robotics Automation Magazine, IEEE}, 17\penalty0 (3):\penalty0
+  83--94, 2010.
+\newblock ISSN 1070-9932.
+\newblock \doi{10.1109/MRA.2010.937853}.
 
 \bibitem[Fossen(2011)]{fs}
 Thor~I. Fossen.
@@ -73,6 +96,10 @@ Yu~Liu, Jing Zhao, and Biyun Xie.
 \newblock In \emph{Robotics and Biomimetics (ROBIO), 2010 IEEE International
   Conference on}, pages 1704--1709, 2010.
 \newblock \doi{10.1109/ROBIO.2010.5723588}.
+
+\bibitem[Murray et~al.(1994)Murray, Li, and Sastry]{shankar1}
+Richard~M. Murray, Zexiang Li, and S.~Shankar Sastry.
+\newblock A mathematical introduction to robotic manipulation, 1994.
 
 \bibitem[Sanz et~al.(2010)Sanz, Ridao, Oliver, Melchiorri, Casalino, Silvestre,
   Petillot, and Turetta]{trident1}

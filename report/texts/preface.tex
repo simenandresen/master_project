@@ -1,20 +1,78 @@
-\subsection*{Acknowledgement}
+
+\section*{Problem Description}
+Ocean space research using underwater robotics is important for mapping, characterization and monitoring of climate and environment, exploration and exploitation of hydrocarbons and other minerals and resources in demanding areas such as deep water and under ice. The main challenge is to increase the level of autonomy and robustness for automatic mapping, monitoring and intervention, high-level planning/re-planning and reconfiguration of single and multiple vehicles subject to the particular mission, environmental condition, available energy, communication constraints, and any failure conditions.
+
+The Centre of Excellence Autonomous Marine Operations and Systems (AMOS) is dedicated to address these control challenges. The center has high expertise and cutting edge experimental facilities to solve the corresponding control problems. This MSc project will be integrated in the AMOS research, with the corresponding access to cutting edge expertise and experimental facilities.
+
+In particular, this MSc project will address the control challenges of underwater robotics. Development of control and optimisation methods for high-level planning/re-planning and reconfiguration of autonomous underwater vehicles with manipulation capabilities operating in various environmental conditions and in confined areas. This involves modelling of the hydrodynamic loads induced on vehicles by the interaction with the sea bottom, risers or other marine units. Varying hydrodynamic models, both in structure and parameters, and their influence on control system design for vehicle and robotic manipulators will be studied. This is necessary due to different tool configurations and modes of operations. For certain repair operations the underwater vehicle may be connected to the subsea template by some umbilical for energy supply and possible tele-robotics functions.
+\\
+The following subtasks are proposed for this project:
+\begin{enumerate}
+	\item Perform a literature study on underwater robotics, focusing on AUV/ROVs with manipulator arms attached. To get you started, have a look at Underwater Robots by Antonelli, Springer verlag 2003, and Chapter 10 of Vehicle-manipulator Systems by From, Gravdahl and Pettersen, Springer verlag 2013. Complete the literature study with recent related conference and journal papers on the topic.
+	\item Identify/choose a realistic mathematical model of an AUV/ROV-manipulator system. In particular, make sure to include the currents, similarly to Equation (8.147) in Handbook of Marine Craft Hydrodynamics and Motion Control by Fossen, Wiley, 2011. Assume that the current is irrotational and constant.
+	\item Develop a force control strategy for the manipulator-AUV/ROV.  Alternative: Develop a control strategy for teleoperation of the manipulator-AUV/ROV system (possibly with a local force control solution). Application: Automated Hot Stab Operation.
+	\item Show the effectiveness of the developed control strategy through simulations.
+\end{enumerate}
+
+Supervisor: Professor Kristin Y. Pettersen\\
+\indent Co-Supervisor: PhD candidate MSc Signe Moe
 
 \clearpage
 
 
-\subsection*{Preface}
+\section*{Preface}
+\noindent This paper constitutes the master project, which is a part of a 5 year study in engineering cybernetics at the Norwegian University of Science and Technology (NTNU). 
+It is written during the autumn of 2013, and is a done in collaboration with the Center of Excellence Autonomous Marine Operations and Systems (AMOS) as a part of their research on underwater autonomy. The project is continued as a master-thesis, which will be done during the spring of 2014. 
+\bigskip
+\bigskip
+\bigskip
+\bigskip
 
-\clearpage
+{
+	\centering Trondheim 2013-12-20
+
+}
+
+\bigskip
+\bigskip
+
+{
+	\centering Simen Andresen
+
+}
+
+\cleardoublepage
+\raggedright
 
 
-\abstract
+\section*{Abstract}
+This paper is on the topics of Underwater Vehicle-Manipulator Systems (UVMS). Literature from recent years on this subject is presented and discussed. Further, a model of the kinematics and kinetics of the UVMS is developed based on well known literature, both from the field of robotics and marine dynamics. 
+
+In order to facilitate human interaction with the UVMS, a path correcting control law using force feedback has been proposed in order to deal with compliance of the end effector when interacting with the environment. Also an inverse kinematic control strategy is proposed to deal with the different bandwidth of the vehicle and manipulator and to give less controllable degrees of freedom for human control. Finally, simulations is done with the developed control strategies, yielding a reduction in energy needed to interact with the environment and good path following under ideal conditions.  
 
 
-\clearpage
+\cleardoublepage
 
 
-\section*{Notation and Acronyms}
+\section*{Acknowledgment}
+First I would like to thank my supervisor Professor Kristin Y. Pettersen for giving me the opportunity to work on a topic I find so interesting, and for taking the time to have regular discussions on the project. 
+
+\bigskip
+\noindent Second I would also like to thank Torstein A. Myhre for help and guidance and help in the field of robotics and computer tools.
+
+\bigskip
+\noindent
+Finally I would like to thank Nina F. Lillemoen, Hans Erik Froeyen and Marius Vikhammer, who I share my office with, for companionship and discussions on topics relevant to the project.
+\bigskip
+\bigskip
+
+{ 
+	\raggedleft S. A.
+
+}
+\cleardoublepage
+
+\section*{Notationand Acronyms}
 
 \subsection*{Acronyms}
 %acronyms
@@ -29,20 +87,21 @@
 
 
     \end{longtable}
-\subsection*{Mathematical symbols}
+\subsection*{Mathematical notation}
 %math
 %\begin{table}[h!]
     \begin{longtable}{p{6cm}p{10cm}}
 			n & Number of links of the manipulator \\
 			m & Number of degrees of freedom of the vehicle.  \\
-			$\bs J \in \Real{6\times (m+n)}$ & $\bs J$ without superscripts or subscripts is always the jacobian mapping the quasi-velocities $\zeta$ to the body velocity of the end effector\\
+			$\bs J \in \Real{6\times (m+n)}$ & $\bs J$ without superscripts or subscripts is always the jacobian mapping the quasi-velocities $\bs \zeta$ to the body velocity of the end effector\\
 			$\bs \omega_{0b} \in \Real 3$ & Rotational velocity of vehicle as observed from body frame.  \\
+			$\bs R_{ab} \in \Real{3 \times 3}$ & Rotation matrix representing the rotation of \frame b with respect to \frame a \\
 			$\bs J^{\dagger} \in \Real{(m+n) \times 6}$ & Pseudo-inverse of $\bs J$\\
 			$\bs V_{0b}^{B} \in \Real 6  $ & Body velocity twist of vehicle\\
 			$\bs V_{0b}^{S}\in \Real 6 $ & Spatial velocity twist of vehicle\\
 			$\bs V_{0e}^{B}\in \Real 6 $ & Body velocity twist of end effector\\
 			$\bs V_{0e}^{S}\in \Real 6 $ & Spatial velocity twist of end effector\\
-			$\tau_{c} \in \Real{m+n}$ & Controlled input generalized forces\\
+			$\bs \tau_{c} \in \Real{m+n}$ & Controlled input generalized forces\\
 			$\bs \eta = \begin{bmatrix} (\bs \eta_{1})^{T} & (\bs \eta_{2})^{T}\end{bmatrix}^{T} \in \Real 6$  & Position and rotation (euler angles) of the vehicle, relative to an inertial frame \\
 			$\bs \eta_{e} \in \Real 6$ & Position and rotation of end effector relative to inertial frame \\ 
 			$\bs \xi = \begin{bmatrix} (\bs \eta)^{T} & (\bs q)^{T}\end{bmatrix}^{T} \in \Real {m+n} $ &  Configuration of UVMS \\
@@ -67,3 +126,4 @@
 
 
 \clearpage
+

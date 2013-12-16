@@ -3,6 +3,7 @@
 #include "kinematics_sfun.h"
 #include "c1_kinematics.h"
 #include "c2_kinematics.h"
+#include "c3_kinematics.h"
 #include "c4_kinematics.h"
 #include "c5_kinematics.h"
 #include "c6_kinematics.h"
@@ -42,6 +43,11 @@ unsigned int sf_kinematics_method_dispatcher(SimStruct *simstructPtr, unsigned
 
   if (chartFileNumber==2) {
     c2_kinematics_method_dispatcher(simstructPtr, method, data);
+    return 1;
+  }
+
+  if (chartFileNumber==3) {
+    c3_kinematics_method_dispatcher(simstructPtr, method, data);
     return 1;
   }
 
@@ -108,10 +114,10 @@ unsigned int sf_kinematics_process_check_sum_call( int nlhs, mxArray * plhs[],
       ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(0U);
       ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(0U);
     } else if (!strcmp(commandName,"makefile")) {
-      ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(223833072U);
-      ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(892363921U);
-      ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3069551500U);
-      ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(781291767U);
+      ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(1882155247U);
+      ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(948396880U);
+      ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3116724312U);
+      ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(608862847U);
     } else if (nrhs==3 && !strcmp(commandName,"chart")) {
       unsigned int chartFileNumber;
       chartFileNumber = (unsigned int)mxGetScalar(prhs[2]);
@@ -127,6 +133,13 @@ unsigned int sf_kinematics_process_check_sum_call( int nlhs, mxArray * plhs[],
         {
           extern void sf_c2_kinematics_get_check_sum(mxArray *plhs[]);
           sf_c2_kinematics_get_check_sum(plhs);
+          break;
+        }
+
+       case 3:
+        {
+          extern void sf_c3_kinematics_get_check_sum(mxArray *plhs[]);
+          sf_c3_kinematics_get_check_sum(plhs);
           break;
         }
 
@@ -187,10 +200,10 @@ unsigned int sf_kinematics_process_check_sum_call( int nlhs, mxArray * plhs[],
       return 0;
     }
   } else {
-    ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2258671627U);
-    ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(3039352968U);
-    ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3649885799U);
-    ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(2533336457U);
+    ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(3866530370U);
+    ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(1634129642U);
+    ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3220441580U);
+    ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(1368295495U);
   }
 
   return 1;
@@ -250,6 +263,18 @@ unsigned int sf_kinematics_autoinheritance_info( int nlhs, mxArray * plhs[], int
         break;
       }
 
+     case 3:
+      {
+        if (strcmp(aiChksum, "nuObfNF9CFP8h1dudASij") == 0) {
+          extern mxArray *sf_c3_kinematics_get_autoinheritance_info(void);
+          plhs[0] = sf_c3_kinematics_get_autoinheritance_info();
+          break;
+        }
+
+        plhs[0] = mxCreateDoubleMatrix(0,0,mxREAL);
+        break;
+      }
+
      case 4:
       {
         if (strcmp(aiChksum, "aWNKcVbgfliVKdLLh9TmZF") == 0) {
@@ -276,7 +301,7 @@ unsigned int sf_kinematics_autoinheritance_info( int nlhs, mxArray * plhs[], int
 
      case 6:
       {
-        if (strcmp(aiChksum, "cy1xaWI3jyAl2rl8Hr1icC") == 0) {
+        if (strcmp(aiChksum, "M0xOffBX25tpa22KWmoM0D") == 0) {
           extern mxArray *sf_c6_kinematics_get_autoinheritance_info(void);
           plhs[0] = sf_c6_kinematics_get_autoinheritance_info();
           break;
@@ -300,7 +325,7 @@ unsigned int sf_kinematics_autoinheritance_info( int nlhs, mxArray * plhs[], int
 
      case 8:
       {
-        if (strcmp(aiChksum, "Va7dqc0NgWW8PFcIAnJCkD") == 0) {
+        if (strcmp(aiChksum, "vCJKyyuI5Z7XSCJy6wf4TE") == 0) {
           extern mxArray *sf_c8_kinematics_get_autoinheritance_info(void);
           plhs[0] = sf_c8_kinematics_get_autoinheritance_info();
           break;
@@ -374,6 +399,17 @@ unsigned int sf_kinematics_get_eml_resolved_functions_info( int nlhs, mxArray *
           (void);
         mxArray *persistentMxArray = (mxArray *)
           sf_c2_kinematics_get_eml_resolved_functions_info();
+        plhs[0] = mxDuplicateArray(persistentMxArray);
+        mxDestroyArray(persistentMxArray);
+        break;
+      }
+
+     case 3:
+      {
+        extern const mxArray *sf_c3_kinematics_get_eml_resolved_functions_info
+          (void);
+        mxArray *persistentMxArray = (mxArray *)
+          sf_c3_kinematics_get_eml_resolved_functions_info();
         plhs[0] = mxDuplicateArray(persistentMxArray);
         mxDestroyArray(persistentMxArray);
         break;
@@ -463,7 +499,7 @@ unsigned int sf_kinematics_get_eml_resolved_functions_info( int nlhs, mxArray *
 void kinematics_debug_initialize(void)
 {
   _kinematicsMachineNumber_ = sf_debug_initialize_machine("kinematics","sfun",0,
-    8,0,0,0);
+    9,0,0,0);
   sf_debug_set_machine_event_thresholds(_kinematicsMachineNumber_,0,0);
   sf_debug_set_machine_data_thresholds(_kinematicsMachineNumber_,0);
 }

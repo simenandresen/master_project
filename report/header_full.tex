@@ -7,7 +7,7 @@
 %\usepackage{MnSymbol}
 \newtheorem{guess}{Hypothesis}
 %\usepackage[b5paper]{geometry}
-
+\usepackage{subcaption}
 
 \usepackage{mathtools}   % loads Â»amsmathÂ«
 \usepackage{empheq}
@@ -50,12 +50,15 @@
 
 \usepackage[glenn]{fncychap}
 \usepackage{sectsty}
-\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+\allsectionsfont{\sffamily
+%\mdseries
+\upshape } % (See the fntguide.pdf for font help)
+
 
 %Change the chapte layout
 \usepackage{titlesec}
 \titlespacing*{\chapter}{0pt}{-50pt}{20pt}
-\titleformat{\chapter}[display]{\ttfamily \LARGE\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titleformat{\chapter}[display]{\ttfamily \LARGE\bfseries}{\chaptertitlename\ \thechapter}{22pt}{\Huge}
 
 % Fancy MATLAB-kode:
 \usepackage{textcomp}
@@ -104,7 +107,7 @@
 ]{equation}
 \global\mdfdefinestyle{graybox}{%
 outerlinewidth=0pt,innerlinewidth=0pt,
-outerlinecolor=gray,roundcorner=5pt,
+outerlinecolor=gray,roundcorner=0pt,
 backgroundcolor=gray!27
 }
 
@@ -170,3 +173,10 @@ NTNU
 		%\begin{Algorithm}[t]
 		%\caption{Does work, though no nice solution.}
 		%\end{Algorithm}
+
+
+
+\usepackage{booktabs}
+\usepackage[]{geometry}
+%\usepackage[b5paper]{geometry}
+\textwidth = 15cm

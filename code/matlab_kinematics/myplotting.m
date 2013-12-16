@@ -83,7 +83,29 @@ set(leg,'Interpreter','latex');
 grid on;
 
 
+% new figure
+i=i+1;
+h(i)=figure(i);
+set(h(i),'Units','normalized');
+set(h(i),'Position',[0.1,0.3,0.4,0.4]);
+subplot(3,1,1);
+plot(time,x_ee_in_b);
+grid on;
+title('End effector in vehicle frame');
 
+subplot(3,1,2);
+plot(time,H_trace(:,1:6));
+leg=legend('$x$','$y$','$z$','$\phi$','$\theta$','$\psi$');
+set(leg,'Interpreter','latex');
+grid on;
+title('Diagonal of W matrix for weighted least norm');
+
+subplot(3,1,3);
+plot(time,H_trace(:,7:12));
+leg=legend('$q_1$','$q_2$','$q_3$','$q_4$','$q_5$','$q_6$');
+set(leg,'Interpreter','latex');
+grid on;
+title('Diagonal of W matrix for weighted least norm');
 
 % %% measured velocities
 % i=i+1;

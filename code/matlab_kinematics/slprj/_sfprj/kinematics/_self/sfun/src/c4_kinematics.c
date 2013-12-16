@@ -323,7 +323,7 @@ static void sf_c4_kinematics(SFc4_kinematicsInstanceStruct *chartInstance)
   c4_b_J_inv = (real_T (*)[72])ssGetOutputPortSignal(chartInstance->S, 1);
   c4_b_J = (real_T (*)[72])ssGetInputPortSignal(chartInstance->S, 0);
   _sfTime_ = (real_T)ssGetT(chartInstance->S);
-  _SFD_CC_CALL(CHART_ENTER_SFUNCTION_TAG, 2U, chartInstance->c4_sfEvent);
+  _SFD_CC_CALL(CHART_ENTER_SFUNCTION_TAG, 3U, chartInstance->c4_sfEvent);
   for (c4_i2 = 0; c4_i2 < 72; c4_i2++) {
     _SFD_DATA_RANGE_CHECK((*c4_b_J)[c4_i2], 0U);
   }
@@ -333,7 +333,7 @@ static void sf_c4_kinematics(SFc4_kinematicsInstanceStruct *chartInstance)
   }
 
   chartInstance->c4_sfEvent = CALL_EVENT;
-  _SFD_CC_CALL(CHART_ENTER_DURING_FUNCTION_TAG, 2U, chartInstance->c4_sfEvent);
+  _SFD_CC_CALL(CHART_ENTER_DURING_FUNCTION_TAG, 3U, chartInstance->c4_sfEvent);
   for (c4_i4 = 0; c4_i4 < 72; c4_i4++) {
     c4_J[c4_i4] = (*c4_b_J)[c4_i4];
   }
@@ -474,7 +474,7 @@ static void sf_c4_kinematics(SFc4_kinematicsInstanceStruct *chartInstance)
     (*c4_b_J_inv)[c4_i20] = c4_J_inv[c4_i20];
   }
 
-  _SFD_CC_CALL(EXIT_OUT_OF_FUNCTION_TAG, 2U, chartInstance->c4_sfEvent);
+  _SFD_CC_CALL(EXIT_OUT_OF_FUNCTION_TAG, 3U, chartInstance->c4_sfEvent);
   sf_debug_check_for_state_inconsistency(_kinematicsMachineNumber_,
     chartInstance->chartNumber, chartInstance->instanceNumber);
 }

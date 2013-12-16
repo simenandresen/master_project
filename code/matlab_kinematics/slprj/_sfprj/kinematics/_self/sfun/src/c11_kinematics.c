@@ -192,7 +192,7 @@ static void sf_c11_kinematics(SFc11_kinematicsInstanceStruct *chartInstance)
   c11_b_vehicle_rates = (real_T (*)[6])ssGetOutputPortSignal(chartInstance->S, 1);
   c11_b_body_velocity = (real_T (*)[6])ssGetInputPortSignal(chartInstance->S, 0);
   _sfTime_ = (real_T)ssGetT(chartInstance->S);
-  _SFD_CC_CALL(CHART_ENTER_SFUNCTION_TAG, 7U, chartInstance->c11_sfEvent);
+  _SFD_CC_CALL(CHART_ENTER_SFUNCTION_TAG, 8U, chartInstance->c11_sfEvent);
   for (c11_i2 = 0; c11_i2 < 6; c11_i2++) {
     _SFD_DATA_RANGE_CHECK((*c11_b_body_velocity)[c11_i2], 0U);
   }
@@ -206,7 +206,7 @@ static void sf_c11_kinematics(SFc11_kinematicsInstanceStruct *chartInstance)
   }
 
   chartInstance->c11_sfEvent = CALL_EVENT;
-  _SFD_CC_CALL(CHART_ENTER_DURING_FUNCTION_TAG, 7U, chartInstance->c11_sfEvent);
+  _SFD_CC_CALL(CHART_ENTER_DURING_FUNCTION_TAG, 8U, chartInstance->c11_sfEvent);
   for (c11_i5 = 0; c11_i5 < 6; c11_i5++) {
     c11_body_velocity[c11_i5] = (*c11_b_body_velocity)[c11_i5];
   }
@@ -264,7 +264,7 @@ static void sf_c11_kinematics(SFc11_kinematicsInstanceStruct *chartInstance)
     (*c11_b_vehicle_rates)[c11_i11] = c11_vehicle_rates[c11_i11];
   }
 
-  _SFD_CC_CALL(EXIT_OUT_OF_FUNCTION_TAG, 7U, chartInstance->c11_sfEvent);
+  _SFD_CC_CALL(EXIT_OUT_OF_FUNCTION_TAG, 8U, chartInstance->c11_sfEvent);
   sf_debug_check_for_state_inconsistency(_kinematicsMachineNumber_,
     chartInstance->chartNumber, chartInstance->instanceNumber);
 }

@@ -11,6 +11,7 @@ TARGET      = sfun
 CHART_SRCS 	= \
      c1_kinematics.c\
      c2_kinematics.c\
+     c3_kinematics.c\
      c4_kinematics.c\
      c5_kinematics.c\
      c6_kinematics.c\

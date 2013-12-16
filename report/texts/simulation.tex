@@ -1,2 +1,92 @@
 \section{Simulation}
-For testing the performance of the control strategies above, simulations where done using Matlab/Simulink running in an Linux environment. 
+\label{sec:simulation}
+For testing the performance of the control strategies above, simulations where done using Matlab/Simulink running in an Linux environment. To provide a graphical representation of the UVMS, the \textit{Robotic Toolbox}\footnote{Robotic Toolbox is a toolbox for Matlab/Simulink written by Peter Corke, and distributed under the Lesser General Pulic Licence} where used. 
+In the general setup of the simulation, an underwater vehicle was used, with a 6-link robotic manipulator mounted on. 
+As recalled, only the inertia part of the dynamics is simulated (to to the assumption that the controller cancels out the nonlinear parts perfectly). The model of the uvms is therefor described by the matrix $\bs M(\bs q)$ and the DH-parameters.
+
+\begin{table}[h!] % Add the following just after the closing bracket on this line to specify a position for the table on the page: [h], [t], [b] or [p] - these mean: here, top, bottom and on a separate page, respectively
+\caption{DH parameters of the kinematic chain of the robot manipulator} % Table caption, can be commented out if no caption is required
+\centering % Centers the table on the page, comment out to left-justify
+\begin{tabular}{l c c c c } % The final bracket specifies the number of columns in the table along with left and right borders which are specified using vertical bars (|); each column can be left, right or center-justified using l, r or c. To specify a precise width, use p{width}, e.g. p{5cm}
+\toprule % Top horizontal line
+%& \multicolumn{3}{c}{DH parameters} \\ % Amalgamating several columns into one cell is done using the \multicolumn command as seen on this line
+%\cmidrule(l){1-5} % Horizontal line spanning less than the full width of the table - you can add (r) or (l) just before the opening curly bracket to shorten the rule on the left or right side
+Link & $ a_i $ & $ \alpha_i $ & $ d_i $ & $ \theta_i$ \\ % Column names row
+\midrule % In-table horizontal line
+1 & 0.2 & $\frac{\pi}{2}$ & 0 & $q_{1}$ \\ % Content row 1
+2 & 1 &0 & 0 & $q_{2}$ \\ % Content row 2
+3 & 0.6 & 0 & 0 & $q_{3}$ \\ % Content row 3
+4 & 0.4 & $-\frac{\pi}{2}$ & 0 & $q_{4}$ \\ % Content row 4
+5 & 0 & $-\frac{\pi}{2}$ & 0 & $q_{5}$ \\ % Content row 5
+6 & 0 & 0& 0.4 & $q_{6}$ \\ % Content row 5
+\bottomrule % Bottom horizontal line
+\end{tabular}
+\label{tab:template} % A label for referencing this table elsewhere, references are used in text as \ref{label}
+\end{table}
+Further, the origin of the vehicle frame \frame b is located at the base of the manipulator. Both a simulation of the force based path correction and the inverse kinematics is presented below. 
+
+\subsection{Inverse Kinematics}
+
+A simulation is done in order to test the inverse kinematic control law using the weighted pseudo inverse. The objective is to track an elliptic path that lies in the $x-z$ plane of the workspace of the end effector. 
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{./figures/matlab/kinematic-sim1.eps}
+	
+	\caption{The objective of the simulation is to track the elliptic path (red) in the workspace of the end effector }
+	\label{fig:robot-sim1}
+\end{figure}
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.6]{./figures/matlab/kinematic-sim2.eps}
+	
+	\caption{Plot of commanded vehicle position and joint angles }
+	\label{fig:robot-sim2}
+\end{figure}
+
+From Fig. \ref{fig:robot-sim2} one can see that the vehicle is close to stationary as long as the manipulator joints are away from their limits, and the path is within reach. Between $t=0 s$ and $t=1.2 s$ the vehicle has to move, in the x direction, in order for the end effector to reach the desired trajectory. After $t=1.2 s$ it is almost stationary. Then at $t=3 s $ $ q_{3}$ is getting close to its limit at $-110^{o}$ and the vehicle is commanded in the x-direction due to the loss of redundancy of the manipulator. The different configurations of the UVMS during the tracking can be seen in Fig. \ref{fig:robo-tracking}.  
+
+
+\newcommand{\rscale}{0.18}
+\begin{figure}[h!]
+	\centering
+%	\begin{subfigure}
+
+		\includegraphics[scale=\rscale]{./figures/matlab/kin-robot101.eps}
+%\end{subfigure}
+%	\begin{subfigure}
+		\includegraphics[scale=\rscale]{./figures/matlab/kin-robot161.eps}
+		\includegraphics[scale=\rscale]{./figures/matlab/kin-robot261.eps} \\
+	
+		\includegraphics[scale=\rscale]{./figures/matlab/kin-robot361.eps}
+		\includegraphics[scale=\rscale]{./figures/matlab/kin-robot461.eps}
+		\includegraphics[scale=\rscale]{./figures/matlab/kin-robot561.eps} \\
+		
+		\includegraphics[scale=\rscale]{./figures/matlab/kin-robot661.eps}
+		\includegraphics[scale=\rscale]{./figures/matlab/kin-robot761.eps}
+		\includegraphics[scale=\rscale]{./figures/matlab/kin-robot861.eps}
+		\\
+		\includegraphics[scale=\rscale]{./figures/matlab/kin-robot961.eps}
+		\includegraphics[scale=\rscale]{./figures/matlab/kin-robot1061.eps}
+		\includegraphics[scale=\rscale]{./figures/matlab/kin-robot1161.eps}
+		
+%\end{subfigure}
+	\caption{UVMS tracking the desired path}
+	\label{fig:robo-tracking}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.6]{./figures/matlab/kinematic-sim3.eps}
+	
+	\caption{Plot of joint velocities and the elements of $W$ }
+	\label{fig:robot-sim3}
+\end{figure}
+
+In the simulation above, the weighted pseudo inverse was used, where the matrix $W$ was weighted according to (citation needed). In Fig. \ref{fig:robot-sim3} one can see that both the joint velocities, and the diagonal elements of the weighting matrix $W$. When the joints are close to a limit, and the direction of the joint velocity changed, and thus switching the sign of $\Delta |\frac{\delta H}{\delta q_{i}}|$ it gives a very large change in the corresponding element of $W$. 
+This will in turn cause oscillation in the joint velocities. This is due to the discretization of the system. In the continuous case the joint velocity is exactly 0 when $\Delta |\frac{\delta H}{\delta q_{i}}|$ changes sign. In the discrete case, however, the joint velocity is not necessary zero, and the large change in $W$ when the joint velocity is nonzero gives oscillations. 
+
+
+\subsection{Force Based Motion Control}

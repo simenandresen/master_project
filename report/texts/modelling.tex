@@ -1,12 +1,16 @@
 
 \section{Modelling}
+\label{sec:modelling}
 
 In this section mathematical models of the UVMS is presented. The kinematics of the UVMS is highly complex due to the mix of quasi-velocities and generalized velocities, and the number of degrees of freedom of the total system. 
-The dynamics is also highly complex, due to the high amount of parameters in the hydrodynamics, strong coupling forces between the rigid bodies, varying inertia for different manipulator configuration and more. The kinematics can be derived in the framework of Lie groups and Lie algebras. However, a detailed study of this is not included, but can be found in e.g. \cite{kristin_jant}. It should be noted that some of the notation is not consistent with the  litterature of underwater vehicles, due to the need to be consistent within the framework of the UVMS when refering to velocities. Instead of refering to the body velocity of the ship as $ \bs \nu$, the notation $ \vb{0b}{B}$ is used in order to comply with the notation used for velocities of the other frames in the UVMS. 
- 
+The kinetics is also highly complex, due to the high amount of parameters in the hydrodynamics, strong coupling forces between the rigid bodies, varying inertia for different manipulator configuration and the external influences such as sea current. The kinematics can be derived in the framework of Lie groups and Lie algebras. However, a detailed study of this is not included, but can be found in e.g. \cite{bullo1} or \cite{shankar1}. It should be noted that some of the notation is not consistent with the  litterature of underwater vehicles, due to the need to be consistent within the framework of the UVMS when refering to velocities. Instead of refering to the body velocity of the ship as $ \bs \nu$, the notation $ \vb{0b}{B}$ is used in order to comply with the notation used for velocities of the other frames in the UVMS. 
+
+
 
 %kinematics
 \subsection{Kinematics}
+Kinematics describe the dynamics of the system in terms of geometry, without taking into account how the motion is created. To derive the kinematics of an UVMS, one assumes that all the links in the system are perfectly rigid, and the motion of each rigid body is composed of either a translation, a rotation or both. One of the most important properties of a robotic kinematic chain is the velocities, and it is therefor important to have a good definition. For deriving control laws for the system, one is interested in tracking velocities, both for the end effector and the vehicle. Throughout this paper, the velocity of a rigid body  will be described either as \textit{spatial} or \textit{body} velocity twists. The general notation of velocity for a rigid body $i$ is then $\vb{0i}{S}$ or $\vb{0i}{B}$ representing the spatial or body velocity of the \frame i (attached to the rigid body), relative to \frame 0. The linear part of the spatial velocity of a rigid body relative to an inertial frame is the velocity of a point attached to a possible imaginary extension of the body, moving through the inertial frame (\cite{kristin_jant}). The angular velocity part of the spatial velocity, is the angular velocity as seen from the inertial frame. Although somewhat non-intuitive, the spatial representation facilitates the modeling of a multibody kinematic chain (see \cite{featherstone} or \cite{shankar1}) 
+
 
 \begin{figure}[h!]
   \centering
@@ -14,7 +18,7 @@ The dynamics is also highly complex, due to the high amount of parameters in the
   \caption{The assignment of the frames for the UVMS system}
   \label{fig:uvms_kinematics}
 \end{figure}
-The ROV is regarded as a rigid body with the normal 6 degrees of freedom (DOFs), and the manipulator is a 6-link kinematic chain with only 1 DOF revolute joints. For representing the kinematic structure of the UVM system, a number of frames are assigned as shown in Fig. \ref{fig:uvms_kinematics}. A reference frame $\mathcal{F}_0$ is attached to the earth and is considered inertial. The body frame is located at the ROV's center of mass while the frames of the manipulator is attached according to the Denavit-Hartenburg (DH) convention \cite{spong2005robot}. 
+The ROV is regarded as a rigid body with the normal 6 degrees of freedom (DOFs), and the manipulator is a 6-link kinematic chain with only 1 DOF revolute joints. For representing the kinematic structure of the UVM system, a number of frames are assigned as shown in Fig. \ref{fig:uvms_kinematics}. A reference frame $\mathcal{F}_0$ is attached to the earth and is considered inertial. The body frame is located at the ROV's center of mass while the frames of the manipulator is attached according to the Denavit-Hartenburg (DH) convention (\cite{spong2005robot}). 
 
 \begin{figure}[h!]
 	\centering
@@ -22,18 +26,18 @@ The ROV is regarded as a rigid body with the normal 6 degrees of freedom (DOFs),
 	\caption{The frames are assigned to the kinematic structure of the manipulator according to the DH convention}
 	\label{fig:dh-manipulator}
 \end{figure}
-For representing the orientation of the vehichle euler angles are used, which gives a minimal representation of the attitude at the expense of giving representational singulatities, see e.g. \cite{fs}. The position is represented as the coordinates of the origin of $\mathcal{F}_b$ relative to $\mathcal{F}_0$. The configuration of the manipulator are represented using the angles $q$. The total configuration given in generalized coordinates can then be written in vector form.
+For representing the orientation of the vehicle euler angles are used, which gives a minimal representation of the attitude at the expense of giving representational singularities, see e.g. \cite{fs}. The position is represented as the coordinates of the origin of $\mathcal{F}_b$ relative to $\mathcal{F}_0$. The configuration of the manipulator are represented using the angles $q$. The total configuration given in generalized coordinates can then be written in vector form.
 \begin{align*}
   \xib&:= \left[ \etab^T \bs q^T \right]^T \in \mathbb{R}^{6+n}
   \\
   \etab &= \begin{bmatrix}\etab_1 \\ \etab_2 \end{bmatrix}  = \begin{bmatrix} x_{0b} \\ y_{0b} \\ z_{0b} \\ \phi \\ \theta \\ \psi \end{bmatrix} \in \mathbb{R}^{6}
 \end{align*}
-One of the challenges to UVM systems is the mix of euclidean and non euclidean transformations representing the configuration of the system. While the transformation of each link is euclidean, the transformation of the vehicle is non-Euclidean \footnote{see i.e. \cite{kristin_jant} for a detailed discussion} , and in general the following is true
+One of the challenges to UVM systems is the mix of euclidean and non euclidean transformations representing the configuration of the system. While the transformation of each link is euclidean, the transformation of the vehicle is non-Euclidean \footnote{see e.g. \cite{kristin_jant} for a detailed discussion} , and in general the following is true
 \begin{align}
 	\bs \omega_{0b} \neq & \etadotb_2
   \label{eq:quasi1}
 \end{align}
-We will therefor use quasi-velosities $ \zetab $ or $\zetab^S$ to represent the velocity state of the system
+Thus, the quasi-velocities $ \zetab $ or $\zetab^S$ is used to represent the velocity state of the system
 \begin{align}
   \zetab &= \begin{bmatrix} \vbb \\ \qdot \end{bmatrix}
   \label{eq:zeta1}
@@ -41,7 +45,9 @@ We will therefor use quasi-velosities $ \zetab $ or $\zetab^S$ to represent the 
 	\zetab^S &= \begin{bmatrix} \vb{0b}{S} \\ \qdot \end{bmatrix}
 	\label{eq:zetas}
 \end{align}
-Where $\vbb = \begin{bmatrix} \bs v^{T} & ( \bs \omega_{0b}  )^{T} \end{bmatrix}=  \begin{bmatrix} u & v & w & p & q & r \end{bmatrix}^T \in \mathbb{R}^6 $ is the body velocity twist, and $\zetab^S$ is the corresponding Spatial velocities as defined in \cite{kristin_jant}. The quasi coordinates can be mapped to the time derivative of the generalized coordinates through, \cite{kristin_jant} 
+Where $\vbb = \begin{bmatrix} \bs v^{T} & ( \bs \omega_{0b}  )^{T} \end{bmatrix}=  \begin{bmatrix} u & v & w & p & q & r \end{bmatrix}^T \in \mathbb{R}^6 $ is the body velocity twist, and $\zetab^S$ is the corresponding spatial velocities. 
+
+The quasi velocities can be mapped to the time derivative of the generalized coordinates through (\cite{kristin_jant})
 \begin{align}
  	\xidotb &=\bs J_a(\etab_2)\zetab 
   \label{eq:quasi_trans}
@@ -59,25 +65,32 @@ Where $\bs T_{0b}(\eta_2)$ is written as in \cite{fs}.
 	\end{bmatrix}
 	\label{eeq:fossen-transfomrm}
 \end{align}
-Where $s \; \cdot = sin(\cdot ), \; c \; \cdot = cos(\cdot)$ and $t \; \cdot = tan(\cdot)$. Throughout the paper several velocity variables will be used, so it is appropriate with a definition
+Where $s \; \cdot = sin(\cdot ), \; c \; \cdot = cos(\cdot)$ and $t \; \cdot = tan(\cdot)$. The following is a definition of the total configuration states and velocities
 
 
 \begin{mdframed}[style=graybox]
 \begin{align}
+	&\bs \xi \; - \; \text{Generalized coordinates for the UVMS} \nonumber
+	\\
+	& \zetab \; - \; \text{Quasi velocities for the UVMS in body velocities} \nonumber
+	\\
+	& \zetab^{S} \; - \; \text{Quasi velocities of the UVMS in spatial velocities} \nonumber
+	\\
 &	\vb{0e}{B}\; - \; \text{Velocity of the end effector frame \frame e relative to \frame 0 as seen from \frame e} \nonumber
 \\
 & \vb{0b}{B}\; - \; \text{Velocity of \frame b relative to \frame 0 as seen from the vehicle frame \frame b} \nonumber
 \\
-&	\vb{0e}{S}\; - \; \text{Velocity of \frame e relative to \frame 0 in spatial coordinates relative to \frame 0} \nonumber
+&	\vb{0e}{S}\; - \; \text{Velocity of \frame e relative to \frame 0 in spatial coordinates} \nonumber
 \\
-&	\vb{0b}{S}\; - \; \text{Velocity of \frame b relative to \frame 0 in spatial coordinates relative to \frame 0} \nonumber
+&	\vb{0b}{S}\; - \; \text{Velocity of \frame b relative to \frame 0 in spatial coordinates} \nonumber
 \end{align}
 
 \end{mdframed}
+The configuration states are now defined for the total system, together with the mapping between the velocity states and the rate of change of the generalized coordinates through the analytical Jacobian $\bs J_{a}$. Further, it is 
+important to define the velocity of frames with respect to an inertial frame, where the velocity of the end effector frame \frame{e} is the most important. This is done through the Geometrical Jacobian $\bs J$, which maps $\zetab \rightarrow \vb{0e}{B}$ or $\zetab^{S} \rightarrow \vb{0e}{S}$  for the body or spatial velocities, respectively. This mapping is derived by using the vehicle velocity twist $\vb{0b}{B}$ (in the case of body velocities) and representing the quasi velocities of the manipulator joints as twists. The process of mapping the link and vehicle velocities to the velocity twist of a frame \frame i is done in several steps. First each relative link velocity $\dot{ q}_{i}$
+is represented as a velocity twist by scaling a unit velocity twist by the associated velocity $\dot{q}_{i}$. The unit velocity twist then represent the velocity of a 1 DOF joint represented in the associated link frame. 
 
-
-
-Using the notation from \cite{kristin_jant} we define the body joint twist of a revolute joint as 
+Using the notation from \cite{kristin_jant} the body joint twist of a revolute joint is defined as 
 \begin{align}
 	\bs X_i^i&=\begin{bmatrix} 0&0&0&0&0&1\end{bmatrix}^T
 	\label{eq:body_twist}
@@ -88,7 +101,7 @@ Next we define the spatial joint twist of a revolute joint as the allowed motion
 	\bs X_i&=\adg{0i}\bs X_i^i
 	\label{eq:spatioal_twist}
 \end{align}
-Where the adjoint map between two frames \frame a and \frame b is defined as
+Where the adjoint transformation of velocity twists between two frames \frame a and \frame b is defined as
 \begin{align}
 	\adg{ab}  &= \begin{bmatrix} \bs R_{ab} & \widehat{\bs p}_{ab}\bs R_{ab} \\ \bs 0 & \bs R_{ab} \end{bmatrix}
 	\label{eq:adjoint}
@@ -96,7 +109,7 @@ Where the adjoint map between two frames \frame a and \frame b is defined as
 	\adg{ab}^{-1} &= \begin{bmatrix} \rb{ab}^T & - \rb{ab}^T \widehat{\bs p}_{ab} \\ 0 & \rb{ab}^T \end{bmatrix}
 	\label{eq:adjoint2}
 \end{align}
-Where \rb{ab} is the rotation matrix from \frame{a} to \frame{b}, and \pb{ab} is the vector representing the linear displacement of the origo of \frame b wrt. to \frame a. It should be noted that \adg{ab} can be seen as a map from body velocity \vb{ab}{B} to spatial velocity \vb{ab}{S}.
+Where \rb{ab} is the rotation matrix from \frame{a} to \frame{b}, and \pb{ab} is the vector representing the linear displacement of the origin of \frame b wrt. to \frame a. It should be noted that \adg{ab} can be seen as a transformation from body velocity \vb{ab}{B} to spatial velocity \vb{ab}{S}.
 The hat operator $\widehat{(\cdot)}$ maps a vector to it's skew symmetric matrix representation, and when operating on a vector $\bs \omega \in \mathcal{R}^3$ is defined as
  \begin{align}
    \widehat{\bs \omega}&= \begin{bmatrix} 0 & -\omega_3 & \omega_2 \\ \omega_3 & 0 & -\omega_1 \\ -\omega_2 & \omega_1 & 0 \end{bmatrix} 
@@ -153,19 +166,23 @@ From \eqref{eq:spatial_jacobi} and \eqref{eq:body_jacobi} we get that the end ef
 	&= \begin{bmatrix} \adg{bi}^{-1} & \adg{bi}^{-1} \bs J_n\end{bmatrix}\zetab
 \end{align}
 Where \jb{n}{} is defined in \eqref{eq:Ji} with $i=n$. We can now summarize the velocity kinematics
+
+
 \begin{mdframed}[style=graybox]
 	\begin{align}
-	\vb{0i}{S}&=\jb{gi}{S}\zeta^S \\
-	\vb{0e}{S}&=\jb{ge}{S}\zeta^S \\
 	\zetab^S&=\begin{bmatrix} (\vb{0b}{S})^T & (\qdot)^T \end{bmatrix}^T \\
 	\zetab^B&=\begin{bmatrix} (\vb{0b}{B})^T & (\qdot)^T \end{bmatrix}^T \\
-	\vb{0i}{S}&=\adg{0i}\vb{0i}{B}
+	\vb{0i}{S}&=\adg{0i}\vb{0i}{B}\\
+	\vb{0e}{S}&=\jb{ge}{S}\zeta^S \\
+	\vb{0e}{B}&=\jb{ge}{B}\zeta^B \\
+	\jb{ge}{S}&=	\begin{bmatrix} \adg{0b} & \adg{0b}\jb{n}{}\end{bmatrix} \\
+	\vb{0e}{B}&= \begin{bmatrix} \adg{bi}^{-1} & \adg{bi}^{-1} \bs J_n\end{bmatrix}
 \end{align}
 \end{mdframed}
 %dynamics
 
-\subsection{Dynamics}
-The dynamics of the UVMS describes the motion of the vehicle in terms of forces, pose, velocities, and acceleration. The mathematical models describing the motion can be described through Newtons law of motion $F=ma$. As customary in modelling of ship dynamics and robotics, the equations of motion is derived from the knowledge of the total energy of the system using the Lagrangian $L$
+\subsection{Kinetics}
+The kinetics of the UVMS describes the relationship between the forces and the corresponding motion of the system. The mathematical models describing the motion can be described through Newtons law of motion $F=ma$. As customary in modelling of ship dynamics and robotics, the equations of motion is derived from the knowledge of the total energy of the system using the Lagrangian $L$
 \begin{align}
 	L=T-V
 	\label{eq:lagrange}
@@ -244,14 +261,14 @@ Since the UVMS uses the end effetor to interact with the environment, it is impo
   \label{eq:jacobian_force}
 \end{align}
 Where $\bs F= [f_x, f_y, f_z, n_x, n_y,n_z]^T  $ is the vector of forces and moments from the environment to the end effector. We can then include the interaction forces to the total dynamics
-
+{\small
 \begin{mdframed}[style=graybox]
 \begin{align}
   \bs M_{RB}\zetadotb+ \bs C_{RB}(\zetab)\zetab + \bs g(\bs \eta) + \bs g_0 + \bs M_A \zetadotb_r  + \bs C_A(\zetab_r) \zetab_r + \bs D(\zetab_r) \zetab_r =\bs \tau+ (\bs J_{ge}^B)^T \bs F 
 \label{eq:dyn_with_current}
 \end{align}
 \end{mdframed}
-
+}
 
 
 

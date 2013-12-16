@@ -46,14 +46,20 @@
 
 
  %%%%%%%%%%%%% BODY %%%%%%%%%%%%%%
+\pagestyle{plain}
+
+\pagenumbering{roman} % Roman numerals
+\setcounter{page}{1}
 \input{./texts/preface.tex}
 
 \cleardoublepage
 \tableofcontents
 \cleardoublepage
 
+\pagenumbering{arabic} % Roman numerals
 \pagestyle{fancy}
-\chead{}
+\chead{Underwater Robotics}
+\rhead{\sectionmark}
 \setcounter{page}{1}
 
 \lfoot{\thepage}
@@ -67,7 +73,7 @@
 \input{./texts/control.tex}
 \input{./texts/simulation.tex}
 
-
+\clearpage
 \newpage
 \bibliographystyle{plainnat}	% (uses file "plain.bst")
 \bibliography{myrefs}		% expects file "myrefs.bib"

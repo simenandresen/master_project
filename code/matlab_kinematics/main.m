@@ -13,7 +13,7 @@ kinematic_parameters;
 
 
 %% simulation
-sim('kinematics.mdl',6);
+sim('kinematics.mdl',7);
 
 
 
@@ -45,7 +45,8 @@ ee_eta2=ee_eta2_c;
 % ee_eta2 = measured_states.ee.ee_eta2.Data;
 % ee_vel = measured_states.ee.ee_vel.Data;
 
-
+x_ee_in_b=x_ee_in_body.Data;
+H_trace = H_matrix.Data;
 
 
 myanimation;

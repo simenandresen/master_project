@@ -1,8 +1,26 @@
 \section{Introduction}
+\subsection{Background}
+In recent years, technological advancement and an increase in interest for underwater recourses has contributed to an increase in manned underwater activity, both for research and for industrial gain. Examples of this is the extraction of oil and gas from reservoirs under the seabed, marine archeology, and underwater mining. In many aspects of underwater activity manned operation is considered difficult, unsafe, inefficient and/or tedious. Therefor, underwater vehicles provides a preferable, and in many cases necessary tool. 
+
+Remotely Operated Vehicles (ROV) have been used for several decades, and consists of an underwater vehicle tethered to a manned control station (e.g. a ship) to provide communication and to close the human-vehicle control loop.  
+
+Autonomous Underwater Vehicles (AUV), on the other hand, should be completely autonomous, and without a tether. An Underwater Vehicle-Manipulator System (UVMS) is a collective term used for both AUV's and ROV's with manipulator capabilities (robot arms). Since both ROV's and AUV's share most of their properties, UVMS will be the generalization which will be used in this paper. 
+
+In order to do complicated tasks, such as intervening  with the environment, ROV's are today the vehicle of choice. For simpler tasks, such as pipeline inspections, it is realistic with fully autonomous vehicles, using well known path following methods and control strategies (see e.g. \cite{fs}).  
+Still there is a large gap between ROV's and AUV's when it comes to doing complicated tasks involving e.g. manipulator capabilities. In order to bridge this gap, it is important to look at strategies to keep the human, as much as possible, out of the control loop, and thus providing semi-autonomous control. 
+
+\subsection{Problem Formulation}
+An UVMS is a highly dynamic system with complicated kinematics as well as complex kinetics due to high coupling between rigid bodies and hydrodynamics and external influences such as sea current. This paper presents models for the kinematics and kinetics, using a framework from the robotic literature (and also, more recently, from the ship modeling literature).
+
+A hot stab operation is a typical operation for a UVMS where precision is important, and the manipulator interacts with the environment. The hot stab operation, as done today, demands highly skilled operators, and excessively robust tools and structures to withstand the impact between manipulator and environment.  Control methods using measurements of the force on the end effector\footnote{The end effector is the robot gripper or hand, i.e. the last link of the robot manipulator} of the robot is therefor developed. Further, kinematic control methods will be designed, for humans to control only some degrees of freedom (DOFs) of the end effector, yielding higher accuracy.
+
+\subsection{Structure of the paper} 
+It is assumed that the reader has some knowledge of robot or ship modeling and control, and is familiar with rigid body dynamics and kinematics. The paper starts with a presentation of recent years' literature on UVMS's in section \ref{sec:literature}. In section \ref{sec:modelling}, the mathematical model is derived and presented.
+In section \ref{sec:control} control laws are presented, in section \ref{sec:simulation} the proposed control laws are simulated, and finally in section (sitation needed) a conclusion is made and further work is proposed.
 
 \clearpage
-\section{Litterature Review}
-
+\section{Literature Review}
+\label{sec:literature}
 In this section, different litterature on the topic of underwater vehicles with manipulators (UVMS) is presented. To focus is mostly on kinematics and force control solutions, but also some general modeling and motion control is presented.  
 \\
 

@@ -485,9 +485,9 @@ function h = create_new_robot(robot, opt)
             h.joint(i) = surface(xc,yc,zc,cdata);
             
             % set the surfaces to be smoothed and translucent
-            set(h.joint(i), 'FaceColor', 'interp');
-            set(h.joint(i), 'EdgeColor', 'none');
-            set(h.joint(i), 'FaceAlpha', 0.7);
+            %set(h.joint(i), 'FaceColor', 'interp');
+            %set(h.joint(i), 'EdgeColor', 'none');
+            %set(h.joint(i), 'FaceAlpha', 0.7);
 
             % build a matrix of coordinates so we
             % can transform the cylinder in animate()

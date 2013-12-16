@@ -1,17 +1,20 @@
 
 \section{Control}
+\label{sec:control}
+%\subsection{intro}
+In this section, control strategies are proposed for controlling the motion of the UVMS. First the high level control objectives are described. In the subsequent sections, methods for inner motion, kinematic and force control are proposed. Finally a control strategy for a hot stab operation is presented.  
 
-\subsection{intro}
-Today, this kind of operation is done by maneuvring the vehicle to a position where the manipulator is within reach of the hot stab. Once the desired vehicle position is reached, the vehicle is kept stationary by using dynamical positioning, and another operator operates the manipulator arm to do insert the hot stab. The manipulator is normally controlled through a master-slave configuration,\footnote{A master-slave configuration is a control method where an operator moves a replica of the real manipulator. The obtained angles of the replica is then used by the motion control of the manipulator to obtain the same pose as the replica.} 
-or through controling the rates of the joints directly. Both these methods suffer from the following drawbacks:
+\subsection{High level control strategy}
+Today, UVMS operation is typically done by maneuvering the vehicle to a position where the manipulator is within reach of the object it needs to reach. Once the desired vehicle position is reached, the vehicle is kept stationary by using dynamical positioning, and another operator controls the manipulator arm. The manipulator is normally controlled through a master-slave configuration,\footnote{A master-slave configuration is a control method where an operator moves a replica of the real manipulator. The obtained angles of the replica is then used by the motion control of the manipulator to obtain the same pose as the replica.} 
+or through controlling the rates of the joints directly. Both these methods suffer from the following drawbacks:
 
 \begin{itemize}
-	\item The operator is dependant on high video feedback with very low latency in order to make the correct adjustments of the manipulator.  
+	\item The operator is dependent on video feedback with very low latency in order to make the correct adjustments of the manipulator.  
 	\item Two operators are normally required, one for the vehicle and one for the manipulator arm.
-	\item One has to switch between maneuvring the vehicle and the manipulator, even for tasks that are fairly close to eachother, potentially using more energy then required by the task itself. 
+	\item One has to switch between maneuvering the vehicle and the manipulator, even for tasks that are fairly close to each other, potentially using more energy then required by the task itself. 
 	\item Interaction with the environment is difficult due to latency in force feedback from the manipulator, and difficulty in estimating the forces caused by the interaction.
 \end{itemize}
-One of the objectives of the control strategy is to keep the human operator out of the control loop as much as possible. This makes the system less dependant on high speed telemetry which is important when operating nontethered vehicles, making it possible to control them from a great distance. 
+One of the objectives of the control strategy in this paper is to keep the human operator out of the control loop as much as possible. This makes the system less dependent on high speed telemetry, which is important when operating non-tethered vehicles, making it possible to control them from a great distance. 
 The proposed control structure is based on controlling the motion of the end effector seen from the end effector frame \frame{ee}. Kinematically this will be done by an inverse kinematic strategy mapping the end effector velocities 
 to joint, and vehicle velocities, which will be discussed later. This gives the operator the opportunity to ``fly'' the end effector, without dealing with the rest of the manipulator or the vehicle, as this is being managed locally by the control system. 
 Lets now identify the main states of operation of the UVMS, which is useful when designing the control system. 
@@ -21,7 +24,7 @@ Lets now identify the main states of operation of the UVMS, which is useful when
 	\item Repositioning between operation points. In this state, the operator or a path following guidance system will ``fly'' the end effector from one operation point to another, covering relatively short distances. In this state the end effector is controlled and adjusted by an operator controlling the velocities of the end effector.
 	\item End effector interaction. The manipulator is used to interact with the environment, for example in a hot stab operation. In this state, high accuracy is required, and should be automatically regulated locally, giving the operator control over the directions of no contact.
 \end{itemize}
-Before continuing with the force control, a discussion of path following and accuracy is needed. In the two first states the vehicle or the end effector is following a path given by an operator, a path following guidance scheme, or both. The accuracy of the position relative to the desired path is then controlled by the operator through video feedback, or through a guidance system (such as the LOS Guidance Law. See e.g. \cite{fs}). In both cases the guidance is done at a relatively low bandwith, making the path following prone to disturbances, and hence causing the actual path to deviate from the desired path. It is assumed that the reference given to the low level motion control is given as the generalized and quasi velocities of the joints and vehicle. When interacting with the environment the position of the end effector needs to be position controlled at a relatively high bandwidth. This is important in order to be robust to disturbances, and avoid undesired forces on the end effector. To maintain a high bandwidth on the position control, it is recommended that this is done locally, keeping the human out of the position control loop.
+Before continuing with the force control, a discussion of path following and accuracy is needed. In the two first states the vehicle or the end effector is following a path given by an operator, a path following guidance scheme, or both. The accuracy of the position relative to the desired path is then controlled by the operator through video feedback, or through a guidance system (such as the LOS Guidance Law. See e.g. \cite{fs}). In both cases the guidance is done at a relatively low bandwidth, making the path following prone to disturbances, and hence causing the actual path to deviate from the desired path. It is assumed that the reference given to the low level motion control is given as the generalized and quasi velocities of the joints and vehicle. When interacting with the environment the position of the end effector needs to be position controlled at a relatively high bandwidth. This is important in order to be robust to disturbances, and avoid undesired forces on the end effector. To maintain a high bandwidth on the position control, it is recommended that this is done locally, keeping the human out of the position control loop.
 
 A generalized control strategy for the two last states above will now  be proposed, and will later be specified for a hot stab operation. The overall control structure is illustrated in Fig. \ref{fig:control_structure}. Lets now define the desired path given by the operator as $\bs V_{ee,0}$ and $\bs \eta_{ee,0}$. In the second state of operation, only the desired velocity $\bs V_{ee,0}$ is used to specify the desired trajectory. The high bandwidth motion of the end effector is given as $\bs V_{ee,c}$. In the second state we use that 
 $$\bs V_{ee,0} = \bs V_{ee,c} $$ 
@@ -34,9 +37,9 @@ In the case of the second state of operation the desired velocities of the end e
 \end{figure}
 In the third state of operation accurate position control is essential, and another approach is therefor proposed specifically for a hot stab operation in the test case below. 
 
-\subsection{Motion Control}
-The inner loop of the motion control is outside the scope of this text. For modelling and simulation purposes however, a control strategy based on feedback linearization is proposed, and implemented in SIMULINK in order to 
-simulate the force control and the inverse kinematics. To simplify the implementation and analysis we use the model of the UVMS from \eqref{eq:dyn_with_current} split the input $\bs \tau$ into a cancelling term $\bs \tau_c$ and a 
+\subsection{Low Level Motion Control}
+The inner loop of the motion control is outside the scope of this paper. For modeling and simulation purposes however, a control strategy based on feedback linearization is proposed, and implemented in SIMULINK in order to 
+simulate the force control and the inverse kinematics. To simplify the implementation and analysis we use the model of the UVMS from \eqref{eq:dyn_with_current} split the input $\bs \tau$ into a canceling term $\bs \tau_c$ and a 
 linear control term $\bs \tau_l$ and use $\bs \tau_c$ to cancel out all the nonlinearities and terms including the current, similar to the control law proposed in \cite{foss_schjolberg_modelling}. The nonlinear canceling term yields
 
 \begin{align}
@@ -61,7 +64,7 @@ As long as there is no contact, the system is stable. This can be proved by look
 	\dot{\tilde{\bs \zeta}} & =- \bs K_{p} \tilde{\bs \zeta} 
 	\label{eq:errordynamics}
 \end{align}
-Yielding asymtotic stability of the error.
+Yielding asymptotic stability of the error.
 It should be noted that the controller is only proposed for simulation purposes, in order to capture some of the dynamics of the system. Obtaining exact estimates of the nonlinear terms in \eqref{eq:nonlinear-cancelling} is, however, very difficult in real life, and it is thus difficult to guarantee stability.
 
 
@@ -76,7 +79,7 @@ It should be noted that the controller is only proposed for simulation purposes,
 
 \subsection{Kinematic Control}
 An UVM system is kinematically redundant, meaning that it's configuration space is larger then the task space of the end effector. This is due to the 6 degrees of rotational and translational degrees of freedom of the underwater vehicle in addition to the degrees of freedom given by the number of manipulator joints. Because of this, each configuration of the end effector task space can be obtained by an infinite of configurations in the configuration space of the manipulator. 
-As has been customary in robotics litterature, the mapping from the configuration space to the task space of the end effector\footnote{The task space is used to describe the configuration of the end effector relative to an inertial frame.} is done through the Jacobian, mapping the quasi-velocities of the system to the velocities of the end effector as described in \eqref{eq:body_jacobi}. The velocities can then be transformed to the time derivative of the general 
+As has been customary in robotics literature, the mapping from the configuration space to the task space of the end effector\footnote{The task space is used to describe the configuration of the end effector relative to an inertial frame.} is done through the Jacobian, mapping the quasi-velocities of the system to the velocities of the end effector as described in \eqref{eq:body_jacobi}. The velocities can then be transformed to the time derivative of the general 
 velocities, according to the analytical jacobian \eqref{eq:jacobian_a}, and then integrated to obtain the configuration $\bs \xi(t)$.
 
 \begin{figure}[h!]
@@ -85,7 +88,11 @@ velocities, according to the analytical jacobian \eqref{eq:jacobian_a}, and then
 	\caption{Transformation from end effector velocities to generalized coordinates of the UVMS}
 	\label{fig:inverse1}
 \end{figure}
-The inverse kinematics is, in this context, described as the process of obtaining feasible quasi-velocities $\zeta$ from the desired end effector velocities. Due to the redundancy of the system, the set of feasible velocities $\zeta$ is not unique. In robotics litterature the Gradient Projection Method (GPM) is widely used in order to solve inverse kinematics. This method was first proposed in \cite{Liegeois1977}, and has later been developed and adapted my others.
+The inverse kinematics is, in this context, described as the process of obtaining feasible quasi-velocities $\zeta$ from the desired end effector velocities. Due to the redundancy of the system, the set of feasible velocities $\zeta$ is not unique, and two methods of solving this redundancy is presented below.  
+
+
+\subsubsection{Gradient Projection Method}
+In robotics literature the Gradient Projection Method (GPM) is widely used in order to solve inverse kinematics. This method was first proposed in \cite{Liegeois1977}, and has later been developed and adapted my others.
 Using the notation in this text, GPM by the following equation (\cite{Liegeois1977})
 
 \begin{align}
@@ -94,7 +101,7 @@ Using the notation in this text, GPM by the following equation (\cite{Liegeois19
 \end{align}
 Where the matrix $\bs J$ is the body geometric jacobian, as described in \eqref{eq:ee_velo_body}, and $\bs J^+ \in \Real{12\times 6}$ is the Moore-Penrose pseudo inverse of $\bs J$. $\left( \bs I - \bs J^{+}\bs J\right)$ projects the velocity matrix $k \nabla H$ into the null space of the jacobian. The vector $k \nabla H$ then describes the inner motion of the system, e.g. the motion that does not change the pose of the end effector (\cite{Liegeois1977} ).
 Further, the vector $\nabla H$ is the gradient of a scalar cost function $H$ which is a measure of some performance criterion. For robot manipulator control, $H$ is typically used to avoid joint limits. The null projection of $\nabla H$
-can be regarded as an inexact local solution to an optimization problem, where H is a convex function with $\bs \xi$ as the descicion variables. By choosing the gradient direction $\nabla H$ in the configuration space $\bs \xi$, as the null projected velocities gives an effective way of computing velocities to obtain the desired inner motion. The problem with GPM is that not all step lengths in the gradient direcion $\nabla H$ gives a feasible solutions (e.g. keeping the joint commands within the allowed joint limits). Therefore, the parameter k needs to be tuned to give a feasible solution. An efficient and robust method for scaling k is given in \cite{5723588} yielding
+can be regarded as an inexact local solution to an optimization problem, where H is a convex function with $\bs \xi$ as the decision variables. By choosing the gradient direction $\nabla H$ in the configuration space $\bs \xi$, as the null projected velocities gives an effective way of computing velocities to obtain the desired inner motion. The problem with GPM is that not all step lengths in the gradient direction $\nabla H$ gives a feasible solutions (e.g. keeping the joint commands within the allowed joint limits). Therefore, the parameter k needs to be tuned to give a feasible solution. An efficient and robust method for scaling k is given in \cite{5723588} yielding
 
 \begin{align}
 	k&= - \frac{V_{m} - || \bs J^{+}\vb{0e}{B}|| }{||(\bs I - \bs J^{+}\bs J|| ||\left(\bs I - \bs J^{+}\bs J \right) \nabla H||} 
@@ -102,8 +109,49 @@ can be regarded as an inexact local solution to an optimization problem, where H
 \end{align}
 Where $V_{m}=||\bs \zeta_{max}||_{\infty}$, i.e. the absolute value of the largest allowed joint velocity of any joint. 
 
+\subsubsection{Weighted Least Norm}
+\cite{370511} proposes a weighted Least-Norm solution to the inverse kinematic problem for avoiding joint limits. The weighted least-norm solution yields
+
+\begin{align}
+	\bs \zeta &=\bs J_{w}^{\dagger}  \vb{0e}{B}
+	\label{eq:wln1}
+\\
+\bs J_{w}^{\dagger}&= \bs W^{-1} \bs J^{T} \left( \bs J \bs W^{-1} \bs J^{T} \right)^{-1}
+	\label{eq:wln2}
+\end{align}
+Where $\bs W \in \Real{12 \times 12}$ is a diagonal invertible matrix. In \cite{370511} each element $w_{i}, i=1 .. 12$ along the diagonal of $\bs W$ is weighed according to 
+
+\begin{align}
+	w_{i} &=\begin{cases}
+		1 + \bigg|  \frac{\partial H(q)}{\partial q} \bigg| \; & \text{ if } \; \Delta \frac{\partial H(q)}{\partial q} \geq 0
+	\\
+	1 \; & \text{ if } \; \Delta \frac{\partial H(q)}{\partial q} < 0
+	\end{cases}
+	\label{eq:weight1}
+	\\
+	\frac{\partial H(q)}{\partial q_{i}}&=\frac{  \left( q_{i,max} -q_{i,min} \right)^{2} \left( 2q_{i} - q_{i,max} -q_{i,min}  \right)  }{ 4 \left(  q_{i,min} -q_{i} \right)^{2} \left( q_{i} - q_{i,min} \right)^{2}    }
+	\label{eq:weight2}
+\end{align}
+
+The function$\frac{\partial H(q)}{\partial q_{i}} $ is going to infinity when the joint approaches it's limit. $w_{i}$ therefor goes to infinity when the joint angle $q_{i}$ is approaching the limit. When $q_{i}$ is going away from it's limit, on the other hand, $w_{i} = 1$, 
+%this is attained by the sign of $\Delta \frac{\partial H(q)}{\partial q}$.   
+$\Delta \frac{\partial H(q)}{\partial q}$ only changes sign when $\dot{ q_{	i	}}=0$ or $\frac{\partial H(q)}{\partial q_{i}} $ itself is zero, thus there is no discontinuity in $\dot q_{i}$ (\cite{370511}). 
 
 
+The following simple law is proposed for the inverse kinematics of the UVMS 
+
+\begin{align}
+	w_{i} &=\begin{cases}
+		1 + \bigg|  \frac{\partial H(q)}{\partial q} \bigg| \; & \text{ if } \; \Delta \frac{\partial H(q)}{\partial q} \geq 0
+	\\
+	1 \; & \text{ if } \; \Delta \frac{\partial H(q)}{\partial q} < 0
+	\end{cases}
+	\; , \; i\in \mathcal M	\\
+	w_{i} &= k_{i} \; , \; i\in \mathcal V
+	\label{eq:wln-rule}
+\end{align}
+Where  $\mathcal V = \{i \; | \; \xi_{i} \in \bs \eta \} $, $\mathcal M = \{ \; i | \; \xi_{i} \in \bs q \} $, and  $k_{i} \gg 1$ is a constant number. Thus, the $w_{i}$ corresponding to the vehicle coordinates $\bs \eta$ 
+is weighed high to make sure that the vehicle is stationary as long as the manipulator joints are away from it's limits. 
 
 \subsection{Force Control}
 
@@ -120,7 +168,7 @@ $\bs F_{e}^e$ is therefor the same as $\bs F$ defined in \eqref{eq:jacobian_forc
 \end{align}
 
 In robot manipulator control, it is customary to control the force between the end effector and the environment, either through direct force control or through controlling the apparent impedance between the end effector and the environment. This is typically done through hybrid impedance/force control, where the end effector is supposed to track a position or a force trajectory each in a subspace of the configuration space of a task frame \frame t. 
-A typical application of this is a manipulator washing a car window, where the end effector is position controlled in the plane tangent to the window, while being impedance controled in the direction normal to the window. 
+A typical application of this is a manipulator washing a car window, where the end effector is position controlled in the plane tangent to the window, while being impedance controlled in the direction normal to the window. 
 This kind of control scheme requires a priori knowledge of the geometry and environment impedance, and is thus challenging for a UVMS working in a generally unstructured environment. 
 A control strategy which does not rely of this a priori knowledge is therefor proposed later in the paper.
 
@@ -212,10 +260,10 @@ The scalar function $\alpha$ are weighting the last term in \eqref{eq:control_la
 It is important to notice that the euler representation gives singularities for certain configurations. Therefor, in a robust implementation, quaternions could be used instead. For the purpose of analysis, however, the euler angles have a more intuitive interpretation, and will be used throughout this section.
 Besides acting as a PI controller, the last term in \eqref{eq:control_law1} can also be seen as a path correction term, correcting the velocity $\bs V_{ee,0}$ when deviating from the desired path. When the end effector is in the free flying state, this path correction is done by the operator, correcting the velocity based on observed deviations through e.g. video feedback. 
 
-It is reasonable to assume that the hot-stab system is designed so that it allows a slight error of the positions in $C$, for instance through making the insertion point bigger than the size of the peg, and gradually decreasing in size to make the peg fit. If the $C$ -positions are commanded correctly relative to \frame t the simple PI design of \ref{eq:control_law1} with $\alpha=1$ is sufficient. However, small deviations can occure, either a result of the low level control loop's inability to track the commanded velocity, or by a slight misalignment of the task frame \frame t relative to the physical task. As a result of this, the set points in $C \subseteq \bs \eta_{ee,0}$ can cause the end effector to be commanded (through $\bs V_{ee,c}$) to a set point causing collision with the rigid structure of the environment. This can be seen from \eqref{eq:control_law1}, where a nonzero $\bs K_{2}\tilde{\bs \eta}_{ee}$ commands the end effector to keep a velocity in a direction blocked by the rigid environment.
+It is reasonable to assume that the hot-stab system is designed so that it allows a slight error of the positions in $C$, for instance through making the insertion point bigger than the size of the peg, and gradually decreasing in size to make the peg fit. If the $C$ -positions are commanded correctly relative to \frame t the simple PI design of \ref{eq:control_law1} with $\alpha=1$ is sufficient. However, small deviations can occur, either a result of the low level control loop's inability to track the commanded velocity, or by a slight misalignment of the task frame \frame t relative to the physical task. As a result of this, the set points in $C \subseteq \bs \eta_{ee,0}$ can cause the end effector to be commanded (through $\bs V_{ee,c}$) to a set point causing collision with the rigid structure of the environment. This can be seen from \eqref{eq:control_law1}, where a nonzero $\bs K_{2}\tilde{\bs \eta}_{ee}$ commands the end effector to keep a velocity in a direction blocked by the rigid environment.
 
 More generally, the directions controlled purely by velocity will be more compliant to interaction with the environment, as long as the desired velocity is zero. Although an interaction with the environment causes the end effector to be slightly off the planed velocity trajectory, it will only regulate the velocity to 0, and not try to push on the environment due to a position offset. If the position correction term is used, (corresponding to a nonzero $\alpha$)
-the end effector will be commanded to push on the environment, if the set-points are slightly off the free motion path. A fuzzy tuning rule for $\alpha$ is therefor proposed to stop the position correction term in \eqref{eq:control_law1} when a the magnitude of the force $\bs F_{ee}$ has reached a certain threshold. 
+the end effector will be commanded to push on the environment, if the set-points are slightly off the free motion path. A fuzzy tuning rule for $\alpha$ is therefor proposed to stop the position correction term in \eqref{eq:control_law1} when the magnitude of the force $\bs F_{ee}$ has reached a certain threshold. 
 
 
 
@@ -223,7 +271,7 @@ Let the the p-norm of $\bs F_{ee}$ for $p=2$ be denoted $$F_n=||\bs F_{ee}||_{2}
 	\begin{Algorithm}{12cm}
 	\caption{Fuzzy tuning rule for $\alpha$ \label{alg:alt1}}
 \begin{algorithmic}
-	\REQUIRE $alpha$ initialized to 1
+	\REQUIRE $\alpha$ initialized to 1
 	\IF{$\alpha$ is already 0}
     \STATE    $\alpha=0$
 		\ELSIF{$F_{n} < f_{1}$}

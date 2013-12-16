@@ -3,53 +3,56 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: draft.aux
 The style file: plainnat.bst
 Database file #1: myrefs.bib
+Warning--string name "sv" is undefined
+--line 220 of file myrefs.bib
 Too many commas in name 1 of "From, P. J., Gravdahl, J. T and Pettersen, K. Y" for entry kristin_jant
 while executing---line 1347 of file plainnat.bst
 Too many commas in name 1 of "From, P. J., Gravdahl, J. T and Pettersen, K. Y" for entry kristin_jant
 while executing---line 1347 of file plainnat.bst
+Warning--empty publisher in bullo1
 Too many commas in name 1 of "From, P. J., Gravdahl, J. T and Pettersen, K. Y" for entry kristin_jant
 while executing---line 1429 of file plainnat.bst
 Too many commas in name 1 of "From, P. J., Gravdahl, J. T and Pettersen, K. Y" for entry kristin_jant
 while executing---line 1429 of file plainnat.bst
-You've used 13 entries,
+You've used 17 entries,
             2773 wiz_defined-function locations,
-            673 strings with 7400 characters,
-and the built_in function-call counts, 6816 in all, are:
-= -- 603
-> -- 337
-< -- 17
-+ -- 115
-- -- 102
-* -- 492
-:= -- 981
-add.period$ -- 45
-call.type$ -- 13
-change.case$ -- 71
-chr.to.int$ -- 13
-cite$ -- 26
-duplicate$ -- 348
-empty$ -- 598
-format.name$ -- 125
-if$ -- 1507
+            699 strings with 7969 characters,
+and the built_in function-call counts, 8448 in all, are:
+= -- 750
+> -- 419
+< -- 20
++ -- 143
+- -- 126
+* -- 618
+:= -- 1235
+add.period$ -- 61
+call.type$ -- 17
+change.case$ -- 90
+chr.to.int$ -- 17
+cite$ -- 35
+duplicate$ -- 424
+empty$ -- 741
+format.name$ -- 157
+if$ -- 1853
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 17
-newline$ -- 79
-num.names$ -- 52
-pop$ -- 176
+missing$ -- 21
+newline$ -- 103
+num.names$ -- 68
+pop$ -- 216
 preamble$ -- 1
-purify$ -- 60
+purify$ -- 76
 quote$ -- 0
-skip$ -- 284
+skip$ -- 344
 stack$ -- 0
-substring$ -- 297
-swap$ -- 85
+substring$ -- 341
+swap$ -- 89
 text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 123
-warning$ -- 0
-while$ -- 53
+type$ -- 162
+warning$ -- 1
+while$ -- 67
 width$ -- 0
-write$ -- 186
+write$ -- 243
 (There were 4 error messages)
